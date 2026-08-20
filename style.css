@@ -1,0 +1,334 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #141414;
+  color: white;
+  overflow: hidden;
+}
+
+/* On applique la police des titres Netflix uniquement là où c'est nécessaire */
+.logo, .hero-title, #profile-screen h1, .reasons-container h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1.5px;
+}
+
+/* Animations globales */
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Écrans */
+.screen {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  animation: zoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Écran 0: Sélection de Profil */
+#profile-screen {
+  justify-content: center;
+  align-items: center;
+  background: #141414;
+}
+
+#profile-screen h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: scale(1.08);
+}
+
+.avatar-wrapper {
+  width: 130px;
+  height: 130px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 3px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.profile-card:hover .avatar-wrapper {
+  border-color: #e5e5e5;
+}
+
+.avatar-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-card span {
+  margin-top: 15px;
+  color: #808080;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.profile-card:hover span {
+  color: white;
+}
+
+/* Navbar commun */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 4%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+}
+
+.logo {
+  color: #E50914;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.btn-back {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: background 0.3s;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Écran 1: Banner Hero */
+.hero {
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(20,20,20,0.3) 0%, #141414 90%), 
+              url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80') center/cover;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+}
+
+.hero-content {
+  max-width: 550px;
+  animation: slideUp 0.8s ease-out;
+}
+
+.badge {
+  color: #E50914;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+}
+
+.hero-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 12px 0;
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: #e5e5e5;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+/* Boutons Netflix */
+.btn {
+  padding: 12px 28px;
+  border: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-play {
+  background-color: #white;
+  background: white;
+  color: black;
+}
+
+.btn-play:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.03);
+}
+
+.btn-red {
+  background: #E50914;
+  color: white;
+}
+
+.btn-red:hover {
+  background: #f6121d;
+  transform: scale(1.03);
+}
+
+/* Écran 2: Grille des Raisons */
+.reasons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 80px 20px 20px;
+}
+
+.reasons-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.grid-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.card {
+  background: #1f1f1f;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 280px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(229, 9, 20, 0.3);
+}
+
+.card-img-wrapper {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-title {
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Modales & Écran de Fin */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  animation: zoomIn 0.3s ease;
+}
+
+.modal-content {
+  background: #181818;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 450px;
+  width: 90%;
+  border: 1px solid #333;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.option-btn {
+  padding: 14px 20px;
+  background: #262626;
+  color: white;
+  border: 1px solid #404040;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-btn:hover {
+  background: #E50914;
+  border-color: #E50914;
+  transform: scale(1.02);
+}
+
+.check-icon {
+  font-size: 3.5rem;
+  color: #2ecc71;
+  margin-bottom: 15px;
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .hero-title { font-size: 2.2rem; }
+  .hero-desc { font-size: 0.95rem; }
+  .grid-row { gap: 12px; }
+  .card { width: 100%; max-width: 280px; }
+  .card-img-wrapper { height: 130px; }
+}

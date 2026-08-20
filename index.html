@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix - Special Preview</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Écran 0 : Profils -->
+  <div id="profile-screen" class="screen active">
+    <h1>Qui regarde ?</h1>
+    <div class="profile-card" onclick="goToScreen('home-screen')">
+      <div class="avatar-wrapper">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Avatar">
+      </div>
+      <span>Toi (La plus cool)</span>
+    </div>
+  </div>
+
+  <!-- Écran 1 : Hero / Accueil -->
+  <div id="home-screen" class="screen">
+    <nav class="navbar">
+      <div class="logo">NETFLIX</div>
+    </nav>
+    <div class="hero">
+      <div class="hero-content">
+        <span class="badge">SÉRIE ORIGINALE</span>
+        <h1 class="hero-title">NOTRE PROCHAIN RDV</h1>
+        <p class="hero-desc">Saison 1 : Épisode 1. Découvre les coulisses et pourquoi tu devrais dire oui.</p>
+        <button class="btn btn-play" onclick="goToScreen('reasons-screen')">
+          <i class="fa-solid fa-play"></i> Découvrir l'épisode
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Écran 2 : Grille Alignée -->
+  <div id="reasons-screen" class="screen">
+    <nav class="navbar">
+      <div class="logo">NETFLIX</div>
+      <button class="btn-back" onclick="goToScreen('home-screen')">
+        <i class="fa-solid fa-arrow-left"></i> Retour
+      </button>
+    </nav>
+    
+    <div class="reasons-container">
+      <h2>Tendances : Pourquoi me choisir ?</h2>
+      <div class="grid-row">
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80" alt="Music">
+          </div>
+          <div class="card-title">100% Bonnes Playlists</div>
+        </div>
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=500&q=80" alt="Food">
+          </div>
+          <div class="card-title">Toujours les meilleurs spots</div>
+        </div>
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=500&q=80" alt="Fun">
+          </div>
+          <div class="card-title">0% Prise de tête</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 35px;">
+        <button class="btn btn-red" onclick="openChoiceModal()">
+          <i class="fa-solid fa-check"></i> Valider la date
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale des Choix -->
+  <div id="choice-modal" class="modal">
+    <div class="modal-content">
+      <h2>Quel est ton programme idéal ?</h2>
+      <div class="options">
+        <button class="option-btn" onclick="selectOption('Un verre en terrasse 🍹')">🍹 Un verre en terrasse</button>
+        <button class="option-btn" onclick="selectOption('Une partie d\'arcade / bowling 🎳')">🎳 Arcade & Bowling</button>
+        <button class="option-btn" onclick="selectOption('Une balade au soleil & une glace 🍦')">🍦 Balade & Glace</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Écran de Confirmation -->
+  <div id="final-screen" class="modal">
+    <div class="modal-content">
+      <i class="fa-solid fa-circle-check check-icon"></i>
+      <h2>C'EST VALIDÉ !</h2>
+      <p id="summary-text" style="margin: 15px 0; color: #ccc;"></p>
+      <button class="btn btn-play" onclick="sendWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> Confirmer sur WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
