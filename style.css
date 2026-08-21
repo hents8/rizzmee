@@ -26,20 +26,18 @@
   align-items: center;
 }
 
-/* Le point devant netflix-heart à bien été remis ici */
 .netflix-heart {
-  width: 130px;
-  height: 130px;
-  filter: drop-shadow(0px 0px 30px rgba(229, 9, 20, 0.95));
+  width: 180px;
+  height: 180px;
+  /* Halo d'ombre mélangeant le rouge et l'éclat de flamme */
+  filter: drop-shadow(0px 0px 35px rgba(229, 9, 20, 0.95)) drop-shadow(0px 0px 15px rgba(244, 144, 12, 0.6));
   will-change: transform, opacity;
 }
 
-/* Classe déclenchée au clic */
 .netflix-heart.animate {
   animation: heartBeatTwoTimes 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
 }
 
-/* Animation : 2 battements de cœur marqués (BOUM - BOUM) puis Zoom */
 @keyframes heartBeatTwoTimes {
   0% {
     transform: scale(0);
@@ -50,7 +48,7 @@
     opacity: 1;
   }
 
-  /* Premier battement (BOUM) */
+  /* Premier battement */
   28% {
     transform: scale(1.22);
   }
@@ -58,7 +56,7 @@
     transform: scale(0.92);
   }
 
-  /* Deuxième battement (BOUM) */
+  /* Deuxième battement */
   50% {
     transform: scale(1.35);
   }
@@ -76,14 +74,6 @@
   100% {
     transform: scale(35);
     opacity: 0;
-  }
-}
-
-/* Adaptation Mobile */
-@media (max-width: 768px) {
-  .netflix-heart {
-    width: 95px;
-    height: 95px;
   }
 }
 
@@ -266,11 +256,21 @@ html, body {
 
 .hero {
   height: 100vh;
-  background: linear-gradient(180deg, rgba(20,20,20,0.3) 0%, #141414 90%), 
-              url('./images/cinema.jpg') center/cover;
+  /* Dégradé léger en haut, plus sombre en bas sous le texte */
+  background: linear-gradient(180deg, 
+              transparent 0%, 
+              transparent 45%, 
+              rgba(20, 20, 20, 0.9) 80%, 
+              #141414 100%), 
+            url('./images/cinema.jpg');
+  /* Cadrage calé en haut pour garder le visage bien visible */
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
   display: flex;
-  align-items: center;
-  padding: 0 5%;
+  align-items: flex-end; /* Pousse le texte vers le bas */
+  padding: 0 5% 60px;   /* Marge en bas pour décoller du bord */
 }
 
 .hero-content {
@@ -295,7 +295,7 @@ html, body {
 }
 
 .hero-desc {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: #e5e5e5;
   margin-bottom: 25px;
   line-height: 1.4;
@@ -477,11 +477,35 @@ html, body {
   .grid-row { gap: 12px; }
   .card { width: 100%; max-width: 280px; }
   .card-img-wrapper { height: 130px; }
-  .profile-group { gap: 15px; }
-  .avatar-wrapper { width: 90px; height: 90px; }
-  .profile-card span { font-size: 0.85rem; }
+  .profile-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes égales */
+    gap: 20px 15px; /* Espace vertical / horizontal */
+    max-width: 300px; /* Aligne l'ensemble au centre */
+    margin: 0 auto;
+  }
+
+  /* Ajuste la taille des cartes et des images pour le format 2x2 */
+  .profile-card {
+    width: 100%;
+  }
+
+  .avatar-wrapper {
+    width: 110px;
+    height: 110px;
+  }
   .netflix-heart {
-    width: 90px;
-    height: 90px;
+    width: 130px;
+    height: 130px;
+  }
+  .hero {
+    /* Ajuste la hauteur de focalisation sur mobile si besoin */
+    background-position: center 15%; 
+    padding-bottom: 40px;
+  }
+
+  .hero-content {
+    width: 100%;
+    text-align: left;
   }
 }

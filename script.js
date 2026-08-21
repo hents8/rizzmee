@@ -6,25 +6,25 @@ function selectProfile(profileType) {
   const sound = document.getElementById("netflix-sound");
   const heart = document.querySelector(".netflix-heart");
 
-  // 1. Relance l'animation CSS au clic
+  // Relance l'animation CSS au clic
   if (heart) {
     heart.classList.remove("animate");
-    void heart.offsetWidth; // Force le rafraîchissement DOM
+    void heart.offsetWidth; // Force le rafraîchissement
     heart.classList.add("animate");
   }
 
-  // 2. Affiche le splash screen
+  // Affiche le splash screen
   if (introScreen) {
     introScreen.classList.remove("hidden");
   }
 
-  // 3. Joue le son "Ta-dum"
+  // Joue le son
   if (sound) {
     sound.currentTime = 0;
     sound.play().catch(e => console.log("Erreur audio :", e));
   }
 
-  // 4. Masque et bascule vers l'écran Hero
+  // Transition vers l'écran Hero
   setTimeout(() => {
     if (introScreen) {
       introScreen.classList.add("hidden");
