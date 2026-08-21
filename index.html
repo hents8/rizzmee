@@ -9,20 +9,58 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
+<!-- Splash Screen Netflix Animé -->
+<div id="intro-screen">
+  <div class="heart-container">
+    <div class="netflix-heart"></div>
+  </div>
+  <!-- Son Ta-Dum -->
+  <audio id="netflix-sound" src="./audio/ta-dum.mp3" preload="auto"></audio>
+</div>
 
   <!-- Écran 0 : Profils -->
   <div id="profile-screen" class="screen active">
-    <h1>Qui regarde ?</h1>
-    <div class="profile-card" onclick="goToScreen('home-screen')">
-      <div class="avatar-wrapper">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Avatar">
-      </div>
-      <span>Toi (La plus cool)</span>
-    </div>
+	<nav class="navbar">
+      <div class="logo">NETFLIX</div>
+    </nav>
+    <h1>Qui est-ce ?</h1>
+    <div class="profile-group">
+		<!-- Profil 1 -->
+		<div class="profile-card" onclick="selectProfile('cool')">
+		  <div class="avatar-wrapper">
+			<img src="./images/Netflix-avatar.png" alt="Profil">
+		  </div>
+		  <span>La plus cool</span>
+		</div>
+
+		<!-- Profil 2 -->
+		<div class="profile-card" onclick="selectProfile('belle')">
+		  <div class="avatar-wrapper">
+			<img src="./images/Netflix-avatar1.jpg" alt="Profil">
+		  </div>
+		  <span>La plus belle</span>
+		</div>
+
+		<!-- Profil 3 -->
+		<div class="profile-card" onclick="selectProfile('sexy')">
+		  <div class="avatar-wrapper">
+			<img src="./images/Netflix-avatar3.jpg" alt="Profil">
+		  </div>
+		  <span>La plus sexy</span>
+		</div>
+
+		<!-- Profil 4 -->
+		<div class="profile-card" onclick="selectProfile('drole')">
+		  <div class="avatar-wrapper">
+			<img src="./images/Netflix-avatar2.jpg" alt="Profil">
+		  </div>
+		  <span>La plus mignonne</span>
+		</div>
+	  </div>
   </div>
 
   <!-- Écran 1 : Hero / Accueil -->
-  <div id="home-screen" class="screen">
+  <div id="hero-screen" class="screen">
     <nav class="navbar">
       <div class="logo">NETFLIX</div>
     </nav>
@@ -42,7 +80,7 @@
   <div id="reasons-screen" class="screen">
     <nav class="navbar">
       <div class="logo">NETFLIX</div>
-      <button class="btn-back" onclick="goToScreen('home-screen')">
+      <button class="btn-back" onclick="goToScreen('hero-screen')">
         <i class="fa-solid fa-arrow-left"></i> Retour
       </button>
     </nav>

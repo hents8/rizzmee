@@ -1,8 +1,127 @@
+/* Splash Screen Intro Cœur */
+#intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#intro-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.heart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: netflixHeartIntro 3.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+/* Dessin du cœur rouge Netflix en pure CSS */
+.netflix-heart {
+  background-color: #E50914;
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+  position: relative;
+  transform: rotate(-45deg);
+  box-shadow: 0 0 40px rgba(229, 9, 20, 0.6);
+}
+
+.netflix-heart::before,
+.netflix-heart::after {
+  content: "";
+  background-color: #E50914;
+  border-radius: 50%;
+  height: 100px;
+  position: absolute;
+  width: 100px;
+}
+
+.netflix-heart::before {
+  top: -50px;
+  left: 0;
+}
+
+.netflix-heart::after {
+  left: 50px;
+  top: 0;
+}
+
+/* Animation : Battement de cœur puis Zoom d'ouverture */
+@keyframes netflixHeartIntro {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  35% {
+    transform: scale(0.85); /* Battement 1 */
+  }
+  50% {
+    transform: scale(1.1);  /* Battement 2 */
+  }
+  65% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(25);   /* Zoom final d'ouverture */
+    opacity: 0;
+  }
+}
+
+/* Adaptation Mobile */
+@media (max-width: 768px) {
+  .netflix-heart,
+  .netflix-heart::before,
+  .netflix-heart::after {
+    width: 70px;
+    height: 70px;
+  }
+  .netflix-heart::before {
+    top: -35px;
+  }
+  .netflix-heart::after {
+    left: 35px;
+  }
+}
+
+
+/* ==========================================
+   2. POLICES ET RESET GLOBAL
+   ========================================== */
+@font-face {
+  font-family: 'Netflix Sans Local';
+  src: url('./fonts/NetflixSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Netflix Sans Local';
+  src: url('./fonts/NetflixSans-Regular.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: block;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Netflix Sans Local', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 html, body {
@@ -11,15 +130,22 @@ html, body {
   background-color: #141414;
   color: white;
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* On applique la police des titres Netflix uniquement là où c'est nécessaire */
-.logo, .hero-title, #profile-screen h1, .reasons-container h2 {
+.logo {
   font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
+  font-weight: normal;
+  color: #E50914;
+  font-size: 1.8rem;
 }
 
-/* Animations globales */
+
+/* ==========================================
+   3. STRUCTURE ET ÉCRANS
+   ========================================== */
 @keyframes zoomIn {
   from { opacity: 0; transform: scale(0.92); }
   to { opacity: 1; transform: scale(1); }
@@ -30,7 +156,6 @@ html, body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Écrans */
 .screen {
   display: none;
   height: 100vh;
@@ -46,18 +171,34 @@ html, body {
   animation: zoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Écran 0: Sélection de Profil */
+
+/* ==========================================
+   4. ÉCRAN 0 : SÉLECTION DE PROFIL
+   ========================================== */
 #profile-screen {
   justify-content: center;
   align-items: center;
   background: #141414;
+  position: relative;
+  padding: 60px 20px 20px;
 }
 
 #profile-screen h1 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
+  font-family: 'Netflix Sans Local', 'Helvetica Neue', sans-serif;
+  font-size: 2.8rem;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: -0.5px;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.profile-group {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .profile-card {
@@ -65,7 +206,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .profile-card:hover {
@@ -78,7 +219,7 @@ html, body {
   border-radius: 8px;
   overflow: hidden;
   border: 3px solid transparent;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.2s ease;
 }
 
 .profile-card:hover .avatar-wrapper {
@@ -94,15 +235,22 @@ html, body {
 .profile-card span {
   margin-top: 15px;
   color: #808080;
-  font-size: 1.1rem;
-  transition: color 0.3s ease;
+  font-size: 1.05rem;
+  transition: color 0.2s ease;
+  text-align: center;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .profile-card:hover span {
   color: white;
 }
 
-/* Navbar commun */
+
+/* ==========================================
+   5. NAVBAR ET ÉCRAN 1 (HERO)
+   ========================================== */
 .navbar {
   display: flex;
   align-items: center;
@@ -113,13 +261,6 @@ html, body {
   width: 100%;
   z-index: 10;
   background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
-}
-
-.logo {
-  color: #E50914;
-  font-size: 1.8rem;
-  font-weight: 900;
-  letter-spacing: 2px;
 }
 
 .btn-back {
@@ -137,11 +278,10 @@ html, body {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* Écran 1: Banner Hero */
 .hero {
   height: 100vh;
   background: linear-gradient(180deg, rgba(20,20,20,0.3) 0%, #141414 90%), 
-              url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80') center/cover;
+              url('./images/cinema.jpg') center/cover;
   display: flex;
   align-items: center;
   padding: 0 5%;
@@ -154,15 +294,17 @@ html, body {
 
 .badge {
   color: #E50914;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 0.85rem;
   letter-spacing: 3px;
 }
 
 .hero-title {
-  font-size: 3.2rem;
-  font-weight: 800;
+  font-family: 'Netflix Sans Local', 'Helvetica Neue', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 500;
   line-height: 1.1;
+  letter-spacing: -1px;
   margin: 12px 0;
 }
 
@@ -171,14 +313,14 @@ html, body {
   color: #e5e5e5;
   margin-bottom: 25px;
   line-height: 1.4;
+  font-weight: 300;
 }
 
-/* Boutons Netflix */
 .btn {
   padding: 12px 28px;
   border: none;
   font-size: 1.05rem;
-  font-weight: 700;
+  font-weight: 500;
   border-radius: 4px;
   cursor: pointer;
   display: inline-flex;
@@ -188,7 +330,6 @@ html, body {
 }
 
 .btn-play {
-  background-color: #white;
   background: white;
   color: black;
 }
@@ -208,29 +349,43 @@ html, body {
   transform: scale(1.03);
 }
 
-/* Écran 2: Grille des Raisons */
+
+/* ==========================================
+   6. ÉCRAN 2 : RAISONS
+   ========================================== */
 .reasons-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  padding: 80px 20px 20px;
+  min-height: 100vh;
+  padding: 100px 20px 40px;
+  box-sizing: border-box;
 }
 
 .reasons-container h2 {
-  font-size: 1.8rem;
-  margin-bottom: 25px;
+  font-family: 'Netflix Sans Local', 'Helvetica Neue', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  margin-bottom: 35px;
   text-align: center;
 }
 
 .grid-row {
   display: flex;
-  gap: 20px;
+  gap: 25px;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   max-width: 1000px;
   width: 100%;
+  margin-bottom: 40px;
+}
+
+.reasons-container .btn-red {
+  align-self: center;
+  margin-top: 10px;
 }
 
 .card {
@@ -263,11 +418,14 @@ html, body {
 .card-title {
   padding: 15px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   text-align: center;
 }
 
-/* Modales & Écran de Fin */
+
+/* ==========================================
+   7. MODALES ET OPTION FINAL
+   ========================================== */
 .modal {
   display: none;
   position: fixed;
@@ -307,7 +465,7 @@ html, body {
   border: 1px solid #404040;
   border-radius: 6px;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -324,11 +482,23 @@ html, body {
   margin-bottom: 15px;
 }
 
-/* Responsive Mobile */
+
+/* ==========================================
+   8. RESPONSIVE MOBILE
+   ========================================== */
 @media (max-width: 768px) {
-  .hero-title { font-size: 2.2rem; }
+  .hero-title { font-size: 1.5rem; letter-spacing: -0.5px; }
+  #profile-screen h1 { font-size: 2rem; }
+  .reasons-container h2 { font-size: 1.5rem; }
   .hero-desc { font-size: 0.95rem; }
   .grid-row { gap: 12px; }
   .card { width: 100%; max-width: 280px; }
   .card-img-wrapper { height: 130px; }
+  .profile-group { gap: 15px; }
+  .avatar-wrapper { width: 90px; height: 90px; }
+  .profile-card span { font-size: 0.85rem; }
+  netflixintro {
+    width: 200px;
+    height: 200px;
+  }
 }
