@@ -1,9 +1,36 @@
 const MY_PHONE_NUMBER = "33600000000"; // Remplace par ton numéro
 let selectedChoice = "";
 
-// Redirige depuis n'importe quel avatar vers l'écran Hero
 function selectProfile(profileType) {
-  goToScreen('hero-screen');
+  const introScreen = document.getElementById("intro-screen");
+  const sound = document.getElementById("netflix-sound");
+  const heart = document.querySelector(".netflix-heart");
+
+  // 1. Relance l'animation CSS au clic
+  if (heart) {
+    heart.classList.remove("animate");
+    void heart.offsetWidth; // Force le rafraîchissement DOM
+    heart.classList.add("animate");
+  }
+
+  // 2. Affiche le splash screen
+  if (introScreen) {
+    introScreen.classList.remove("hidden");
+  }
+
+  // 3. Joue le son "Ta-dum"
+  if (sound) {
+    sound.currentTime = 0;
+    sound.play().catch(e => console.log("Erreur audio :", e));
+  }
+
+  // 4. Masque et bascule vers l'écran Hero
+  setTimeout(() => {
+    if (introScreen) {
+      introScreen.classList.add("hidden");
+    }
+    goToScreen('hero-screen');
+  }, 2300);
 }
 
 function goToScreen(screenId) {
@@ -31,16 +58,3 @@ function sendWhatsApp() {
   const message = `Match parfait ! Mon choix pour notre rdv : ${selectedChoice}. On s'organise quand ?`;
   window.open(`https://wa.me/${MY_PHONE_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  const introScreen = document.getElementById("intro-screen");
-  const sound = document.getElementById("netflix-sound");
-
-  if (sound) {
-    sound.play().catch(() => console.log("Audio bloqué par le navigateur"));
-  }
-
-  setTimeout(() => {
-    introScreen.classList.add("hidden");
-  }, 3000);
-});

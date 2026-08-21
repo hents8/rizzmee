@@ -1,4 +1,6 @@
-/* Splash Screen Intro Cœur */
+/* ==========================================
+   1. INTRO TRANSITION CŒUR (SVG FLUIDE)
+   ========================================== */
 #intro-screen {
   position: fixed;
   top: 0;
@@ -10,7 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
+  transition: opacity 0.1s ease, visibility 0.1s ease; 
 }
 
 #intro-screen.hidden {
@@ -22,81 +24,68 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: netflixHeartIntro 3.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
 }
 
-/* Dessin du cœur rouge Netflix en pure CSS */
+/* Le point devant netflix-heart à bien été remis ici */
 .netflix-heart {
-  background-color: #E50914;
-  display: inline-block;
-  height: 100px;
-  width: 100px;
-  position: relative;
-  transform: rotate(-45deg);
-  box-shadow: 0 0 40px rgba(229, 9, 20, 0.6);
+  width: 130px;
+  height: 130px;
+  filter: drop-shadow(0px 0px 30px rgba(229, 9, 20, 0.95));
+  will-change: transform, opacity;
 }
 
-.netflix-heart::before,
-.netflix-heart::after {
-  content: "";
-  background-color: #E50914;
-  border-radius: 50%;
-  height: 100px;
-  position: absolute;
-  width: 100px;
+/* Classe déclenchée au clic */
+.netflix-heart.animate {
+  animation: heartBeatTwoTimes 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
 }
 
-.netflix-heart::before {
-  top: -50px;
-  left: 0;
-}
-
-.netflix-heart::after {
-  left: 50px;
-  top: 0;
-}
-
-/* Animation : Battement de cœur puis Zoom d'ouverture */
-@keyframes netflixHeartIntro {
+/* Animation : 2 battements de cœur marqués (BOUM - BOUM) puis Zoom */
+@keyframes heartBeatTwoTimes {
   0% {
-    transform: scale(0.3);
+    transform: scale(0);
     opacity: 0;
   }
-  20% {
+  15% {
     transform: scale(1);
     opacity: 1;
   }
-  35% {
-    transform: scale(0.85); /* Battement 1 */
+
+  /* Premier battement (BOUM) */
+  28% {
+    transform: scale(1.22);
   }
+  38% {
+    transform: scale(0.92);
+  }
+
+  /* Deuxième battement (BOUM) */
   50% {
-    transform: scale(1.1);  /* Battement 2 */
+    transform: scale(1.35);
   }
-  65% {
+  62% {
     transform: scale(0.95);
   }
+
+  /* Suspension avant le zoom */
+  70% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  /* Zoom d'ouverture */
   100% {
-    transform: scale(25);   /* Zoom final d'ouverture */
+    transform: scale(35);
     opacity: 0;
   }
 }
 
 /* Adaptation Mobile */
 @media (max-width: 768px) {
-  .netflix-heart,
-  .netflix-heart::before,
-  .netflix-heart::after {
-    width: 70px;
-    height: 70px;
-  }
-  .netflix-heart::before {
-    top: -35px;
-  }
-  .netflix-heart::after {
-    left: 35px;
+  .netflix-heart {
+    width: 95px;
+    height: 95px;
   }
 }
-
 
 /* ==========================================
    2. POLICES ET RESET GLOBAL
@@ -142,7 +131,6 @@ html, body {
   font-size: 1.8rem;
 }
 
-
 /* ==========================================
    3. STRUCTURE ET ÉCRANS
    ========================================== */
@@ -170,7 +158,6 @@ html, body {
   flex-direction: column;
   animation: zoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
 
 /* ==========================================
    4. ÉCRAN 0 : SÉLECTION DE PROFIL
@@ -246,7 +233,6 @@ html, body {
 .profile-card:hover span {
   color: white;
 }
-
 
 /* ==========================================
    5. NAVBAR ET ÉCRAN 1 (HERO)
@@ -349,7 +335,6 @@ html, body {
   transform: scale(1.03);
 }
 
-
 /* ==========================================
    6. ÉCRAN 2 : RAISONS
    ========================================== */
@@ -422,7 +407,6 @@ html, body {
   text-align: center;
 }
 
-
 /* ==========================================
    7. MODALES ET OPTION FINAL
    ========================================== */
@@ -482,7 +466,6 @@ html, body {
   margin-bottom: 15px;
 }
 
-
 /* ==========================================
    8. RESPONSIVE MOBILE
    ========================================== */
@@ -497,8 +480,8 @@ html, body {
   .profile-group { gap: 15px; }
   .avatar-wrapper { width: 90px; height: 90px; }
   .profile-card span { font-size: 0.85rem; }
-  netflixintro {
-    width: 200px;
-    height: 200px;
+  .netflix-heart {
+    width: 90px;
+    height: 90px;
   }
 }
