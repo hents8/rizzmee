@@ -7,6 +7,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background-color: #000000;
   z-index: 9999;
   display: flex;
@@ -29,7 +30,6 @@
 .netflix-heart {
   width: 180px;
   height: 180px;
-  /* Halo d'ombre mélangeant le rouge et l'éclat de flamme */
   filter: drop-shadow(0px 0px 35px rgba(229, 9, 20, 0.95)) drop-shadow(0px 0px 15px rgba(244, 144, 12, 0.6));
   will-change: transform, opacity;
 }
@@ -39,42 +39,14 @@
 }
 
 @keyframes heartBeatTwoTimes {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  15% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  /* Premier battement */
-  28% {
-    transform: scale(1.22);
-  }
-  38% {
-    transform: scale(0.92);
-  }
-
-  /* Deuxième battement */
-  50% {
-    transform: scale(1.35);
-  }
-  62% {
-    transform: scale(0.95);
-  }
-
-  /* Suspension avant le zoom */
-  70% {
-    transform: scale(1.05);
-    opacity: 1;
-  }
-
-  /* Zoom d'ouverture */
-  100% {
-    transform: scale(35);
-    opacity: 0;
-  }
+  0% { transform: scale(0); opacity: 0; }
+  15% { transform: scale(1); opacity: 1; }
+  28% { transform: scale(1.22); }
+  38% { transform: scale(0.92); }
+  50% { transform: scale(1.35); }
+  62% { transform: scale(0.95); }
+  70% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(35); opacity: 0; }
 }
 
 /* ==========================================
@@ -104,11 +76,12 @@
 }
 
 html, body {
-  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   background-color: #141414;
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -136,7 +109,8 @@ html, body {
 
 .screen {
   display: none;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   width: 100vw;
   position: absolute;
   top: 0;
@@ -255,22 +229,21 @@ html, body {
 }
 
 .hero {
-  height: 100vh;
-  /* Dégradé léger en haut, plus sombre en bas sous le texte */
+  min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(180deg, 
               transparent 0%, 
               transparent 45%, 
               rgba(20, 20, 20, 0.9) 80%, 
               #141414 100%), 
             url('./images/cinema.jpg');
-  /* Cadrage calé en haut pour garder le visage bien visible */
   background-position: center top;
   background-size: cover;
   background-repeat: no-repeat;
   
   display: flex;
-  align-items: flex-end; /* Pousse le texte vers le bas */
-  padding: 0 5% 60px;   /* Marge en bas pour décoller du bord */
+  align-items: flex-end;
+  padding: 0 5% calc(60px + env(safe-area-inset-bottom));
 }
 
 .hero-content {
@@ -344,7 +317,8 @@ html, body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 100px 20px 40px;
+  min-height: 100dvh;
+  padding: 100px 20px calc(60px + env(safe-area-inset-bottom));
   box-sizing: border-box;
 }
 
@@ -417,21 +391,23 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
+  height: 100dvh;
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
   justify-content: center;
   align-items: center;
   z-index: 100;
   animation: zoomIn 0.3s ease;
+  padding: 20px 20px calc(30px + env(safe-area-inset-bottom));
 }
 
 .modal-content {
   background: #181818;
-  padding: 40px;
+  padding: 40px 25px;
   border-radius: 12px;
   text-align: center;
   max-width: 450px;
-  width: 90%;
+  width: 100%;
   border: 1px solid #333;
 }
 
@@ -467,25 +443,48 @@ html, body {
 }
 
 /* ==========================================
-   8. RESPONSIVE MOBILE
+   8. RESPONSIVE MOBILE (OPTIMISÉ)
    ========================================== */
 @media (max-width: 768px) {
-  .hero-title { font-size: 1.5rem; letter-spacing: -0.5px; }
-  #profile-screen h1 { font-size: 2rem; }
-  .reasons-container h2 { font-size: 1.5rem; }
-  .hero-desc { font-size: 0.95rem; }
-  .grid-row { gap: 12px; }
-  .card { width: 100%; max-width: 280px; }
-  .card-img-wrapper { height: 130px; }
+  .hero-title { 
+    font-size: 1.6rem; 
+    letter-spacing: -0.5px; 
+  }
+  
+  #profile-screen h1 { 
+    font-size: 2rem; 
+    margin-bottom: 1.8rem;
+  }
+  
+  .reasons-container h2 { 
+    font-size: 1.5rem; 
+  }
+  
+  .hero-desc { 
+    font-size: 0.9rem; 
+  }
+  
+  .grid-row { 
+    gap: 15px; 
+  }
+  
+  .card { 
+    width: 100%; 
+    max-width: 280px; 
+  }
+  
+  .card-img-wrapper { 
+    height: 130px; 
+  }
+  
   .profile-group {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 colonnes égales */
-    gap: 20px 15px; /* Espace vertical / horizontal */
-    max-width: 300px; /* Aligne l'ensemble au centre */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 15px;
+    max-width: 290px;
     margin: 0 auto;
   }
 
-  /* Ajuste la taille des cartes et des images pour le format 2x2 */
   .profile-card {
     width: 100%;
   }
@@ -494,18 +493,20 @@ html, body {
     width: 110px;
     height: 110px;
   }
+  
   .netflix-heart {
     width: 130px;
     height: 130px;
   }
+  
   .hero {
-    /* Ajuste la hauteur de focalisation sur mobile si besoin */
-    background-position: center 15%; 
-    padding-bottom: 40px;
+    background-position: center 10%; 
+    padding-bottom: calc(50px + env(safe-area-inset-bottom));
   }
 
   .hero-content {
     width: 100%;
     text-align: left;
+    margin-bottom: 10px;
   }
 }
