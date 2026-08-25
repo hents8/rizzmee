@@ -13,12 +13,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.1s ease, visibility 0.1s ease;
+  transition: opacity 0.2s ease;
 }
 
 #intro-screen.hidden {
+  display: none !important; /* Utilisation de display: none au lieu de visibility */
   opacity: 0;
-  visibility: hidden;
 }
 
 .heart-container {
