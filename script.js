@@ -1,6 +1,11 @@
 const MY_PHONE_NUMBER = "33600000000"; // Remplace par ton numéro
 let selectedChoice = "";
 
+// Forcer le premier écran au chargement de la page
+document.addEventListener("DOMContentLoaded", () => {
+  goToScreen('profile-screen');
+});
+
 function selectProfile(profileType) {
   const introScreen = document.getElementById("intro-screen");
   const sound = document.getElementById("netflix-sound");
@@ -34,9 +39,12 @@ function selectProfile(profileType) {
 }
 
 function goToScreen(screenId) {
+  // Masque tous les écrans
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
   });
+  
+  // Affiche uniquement l'écran ciblé
   const targetScreen = document.getElementById(screenId);
   if (targetScreen) {
     targetScreen.classList.add('active');
