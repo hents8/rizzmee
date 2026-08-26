@@ -371,18 +371,20 @@ html, body {
 /* ==========================================
    6. ÉCRAN 2 : DASHBOARD NETFLIX
    ========================================== */
-#reasons-screen {
-  display: none;
-  background-color: #141414;
-  overflow: hidden;
-  height: 100vh;
-  height: 100dvh;
-  flex-direction: column;
-}
+   #reasons-screen {
+     display: none;
+     background-color: #141414;
+     width: 100%;
+     min-height: 100vh;
+     min-height: 100dvh;
+     position: relative;
+     overflow-y: auto !important; /* Force le scroll vertical */
+     overflow-x: hidden;
+   }
 
-#reasons-screen.active {
-  display: flex;
-}
+   #reasons-screen.active {
+     display: block !important; /* Utiliser block au lieu de flex pour un scroll fluide */
+   }
 
 .nav-links {
   display: flex;
@@ -399,11 +401,11 @@ html, body {
 .hero-banner {
   position: relative;
   width: 100%;
-  height: 62vh;
-  min-height: 440px;
+  height: 65vh;
+  min-height: 480px;
   display: flex;
   align-items: flex-end;
-  padding: 80px 4% 30px;
+  padding: 80px 4% 40px;
   overflow: hidden;
   background-color: #141414;
 }
@@ -1019,11 +1021,8 @@ canvas {
 
   /* Section Épisodes avec scroll fluide */
   .row-section {
-    padding: 0px 4% 40px !important;
-    margin-top: 0 !important;
-    display: block !important;
-    overflow: visible !important;
-    width: 100% !important;
+    padding: 20px 4% 60px !important; /* Marge en bas pour laisser respirer le texte */
+    width: 100%;
   }
 
   .row-title {
