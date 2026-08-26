@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <!-- Splash Screen Transition (Cœur Enflammé Grand Format) -->
+  <!-- Transition Splash Screen (Cœur Netflix) -->
   <div id="intro-screen" class="hidden">
     <div class="heart-container">
       <svg class="netflix-heart" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
@@ -63,13 +63,12 @@
       </div>
     </div>
 
-    <!-- Bouton Gérer les profils -->
     <button id="btn-manage-profiles" class="btn-manage" onclick="toggleManageProfiles()">
       Gérer les profils
     </button>
   </div>
 
-  <!-- Écran 1 : Hero / Accueil -->
+  <!-- Écran 1 : Hero / Teaser -->
   <div id="hero-screen" class="screen">
     <nav class="navbar">
       <div class="logo">NETFLIX</div>
@@ -89,7 +88,7 @@
     </div>
   </div>
 
-  <!-- Écran 2 : Dashboard Netflix Desktop -->
+  <!-- Écran 2 : Dashboard Principal -->
   <div id="reasons-screen" class="screen">
     <nav class="navbar">
       <div class="logo">NETFLIX</div>
@@ -117,115 +116,112 @@
         <p class="banner-desc">
           Sans artifice, juste la magie du moment : une échappée belle en ville, nos musiques préférées, des rires partagés et une vraie complicité. Laisse-toi porter, le programme est déjà parfait.
         </p>
-		<div class="banner-buttons">
-		  <!-- Boutons principaux (Valider & Infos) -->
-		  <button class="btn btn-play" onclick="openChoiceModal()">
-			<i class="fa-solid fa-play"></i> Valider la date
-		  </button>
-		  <button class="btn btn-info" onclick="openChoiceModal()">
-			<i class="fa-solid fa-circle-info"></i> Plus d'infos
-		  </button>
-		  
-		  <!-- Groupe d'icônes (Ma liste, J'aime, Partager) -->
-		  <div class="secondary-action-btns">
-			<button class="btn-icon" title="Ma liste" onclick="openChoiceModal()">
-			  <i class="fa-solid fa-plus"></i>
-			  <span>Ma liste</span>
-			</button>
-			<button class="btn-icon" title="J'aime" onclick="openChoiceModal()">
-			  <i class="fa-regular fa-thumbs-up"></i>
-			  <span>J'aime</span>
-			</button>
-			<button class="btn-icon" title="Partager" onclick="openChoiceModal()">
-			  <i class="fa-solid fa-paper-plane"></i>
-			  <span>Partager</span>
-			</button>
-		  </div>
-		</div>
+
+        <div class="banner-buttons">
+          <button class="btn btn-play" onclick="openChoiceModal()">
+            <i class="fa-solid fa-play"></i> Valider la date
+          </button>
+          <button class="btn btn-info" onclick="openChoiceModal()">
+            <i class="fa-solid fa-circle-info"></i> Plus d'infos
+          </button>
+          
+          <div class="secondary-action-btns">
+            <button class="btn-icon" title="Ma liste" onclick="openChoiceModal()">
+              <i class="fa-solid fa-plus"></i>
+              <span>Ma liste</span>
+            </button>
+            <button class="btn-icon" title="J'aime" onclick="openChoiceModal()">
+              <i class="fa-regular fa-thumbs-up"></i>
+              <span>J'aime</span>
+            </button>
+            <button class="btn-icon" title="Partager" onclick="openChoiceModal()">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Partager</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-<!-- Carrousel / Rangée "Top Picks for You" avec flèches -->
-    <!-- Carrousel / Rangée "Top Picks for You" sans les flèches -->
-<div class="row-section">
-  <h2 class="row-title">Pourquoi Tu Devrais Dire Oui</h2>
-  
-  <div class="carousel-container">
-    <div class="thumbnail-row" id="thumbnailRow">
-      <!-- Épisode 1 -->
-      <div class="thumb-card" onclick="openChoiceModal()">
-        <div class="thumb-wrapper">
-          <video autoplay loop muted playsinline poster="./images/IMG_4030.jpg">
-            <source src="./videos/scene1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="thumb-info">
-          <div class="thumb-header">
-            <span class="episode-number">ÉPISODE 1</span>
-            <div class="episode-badges">
-              <span class="badge-4k">8K</span>
-              <span>• 69 min</span>
+    <!-- Carrousel "Pourquoi Tu Devrais Dire Oui" -->
+    <div class="row-section">
+      <h2 class="row-title">Pourquoi Tu Devrais Dire Oui</h2>
+      
+      <div class="carousel-container">
+        <div class="thumbnail-row" id="thumbnailRow">
+          <!-- Épisode 1 -->
+          <div class="thumb-card" onclick="openChoiceModal()">
+            <div class="thumb-wrapper">
+              <video autoplay loop muted playsinline webkit-playsinline>
+                <source src="./videos/scene1.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="thumb-info">
+              <div class="thumb-header">
+                <span class="episode-number">ÉPISODE 1</span>
+                <div class="episode-badges">
+                  <span class="badge-4k">8K</span>
+                  <span>• 69 min</span>
+                </div>
+              </div>
+              <h4 class="thumb-title">L'Ambiance</h4>
+              <p class="thumb-desc">
+                De la lueur des projecteurs aux plus belles lumières de la ville. Une nuit fluide où le temps s'arrête, des éclats de rire sincères et des regards qui en disent long.
+              </p>
             </div>
           </div>
-          <h4 class="thumb-title">L'Ambiance</h4>
-          <p class="thumb-desc">
-            De la lueur des projecteurs aux plus belles lumières de la ville. Une nuit fluide où le temps s'arrête, des éclats de rire sincères et des regards qui en disent long.
-          </p>
-        </div>
-      </div>
 
-      <!-- Épisode 2 -->
-      <div class="thumb-card" onclick="openChoiceModal()">
-        <div class="thumb-wrapper">
-          <video autoplay loop muted playsinline poster="./images/DJGK6040.jpg">
-            <source src="./videos/scene2.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="thumb-info">
-          <div class="thumb-header">
-            <span class="episode-number">ÉPISODE 2</span>
-            <div class="episode-badges">
-              <span class="badge-4k">8K</span>
-              <span>• 69 min</span>
+          <!-- Épisode 2 -->
+          <div class="thumb-card" onclick="openChoiceModal()">
+            <div class="thumb-wrapper">
+              <video autoplay loop muted playsinline webkit-playsinline>
+                <source src="./videos/scene2.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="thumb-info">
+              <div class="thumb-header">
+                <span class="episode-number">ÉPISODE 2</span>
+                <div class="episode-badges">
+                  <span class="badge-4k">8K</span>
+                  <span>• 69 min</span>
+                </div>
+              </div>
+              <h4 class="thumb-title">Le Companion</h4>
+              <p class="thumb-desc">
+                Un style affirmé, un regard bienveillant et toute mon attention juste pour toi. La promesse d'être là, présent et prêt à te faire passer une soirée inoubliable.
+              </p>
             </div>
           </div>
-          <h4 class="thumb-title">Le Companion</h4>
-          <p class="thumb-desc">
-            Un style affirmé, un regard bienveillant et toute mon attention juste pour toi. La promesse d'être là, présent et prêt à te faire passer une soirée inoubliable.
-          </p>
-        </div>
-      </div>
 
-      <!-- Épisode 3 -->
-      <div class="thumb-card" onclick="openChoiceModal()">
-        <div class="thumb-wrapper">
-          <video autoplay loop muted playsinline poster="./images/IMG_8523.jpg">
-            <source src="./videos/scene3.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="thumb-info">
-          <div class="thumb-header">
-            <span class="episode-number">ÉPISODE 3</span>
-            <div class="episode-badges">
-              <span class="badge-4k">8K</span>
-              <span>• 69 min</span>
+          <!-- Épisode 3 -->
+          <div class="thumb-card" onclick="openChoiceModal()">
+            <div class="thumb-wrapper">
+              <video autoplay loop muted playsinline webkit-playsinline>
+                <source src="./videos/scene3.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="thumb-info">
+              <div class="thumb-header">
+                <span class="episode-number">ÉPISODE 3</span>
+                <div class="episode-badges">
+                  <span class="badge-4k">8K</span>
+                  <span>• 69 min</span>
+                </div>
+              </div>
+              <h4 class="thumb-title">Le Moment Perfect</h4>
+              <p class="thumb-desc">
+                La douceur de la fin de journée, la chaleur du soleil couchant et nos conversations sans filtre. Le décor parfait pour créer nos plus beaux souvenirs.
+              </p>
             </div>
           </div>
-          <h4 class="thumb-title">Le Moment Perfect</h4>
-          <p class="thumb-desc">
-            La douceur de la fin de journée, la chaleur du soleil couchant et nos conversations sans filtre. Le décor parfait pour créer nos plus beaux souvenirs.
-          </p>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-  <!-- Modale des Choix -->
   <!-- Modale des Choix Premium -->
   <div id="choice-modal" class="modal">
     <div class="modal-content option-card-modal">
-      
       <div class="modal-header">
         <span class="modal-badge">ÉPISODE FINAL</span>
         <h2>Comment commence notre histoire ?</h2>
@@ -233,7 +229,6 @@
       </div>
 
       <div class="options-grid">
-        <!-- Option 1 -->
         <div class="choice-card" onclick="selectOption('Cocktails & sunset 🍹')">
           <div class="card-icon">🍹</div>
           <div class="card-text">
@@ -243,7 +238,6 @@
           <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </div>
 
-        <!-- Option 2 -->
         <div class="choice-card" onclick="selectOption('Bowling & Arcade 🎳')">
           <div class="card-icon">🎳</div>
           <div class="card-text">
@@ -253,7 +247,6 @@
           <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </div>
 
-        <!-- Option 3 -->
         <div class="choice-card" onclick="selectOption('Balade & Glace 🍦')">
           <div class="card-icon">🍦</div>
           <div class="card-text">
@@ -263,15 +256,12 @@
           <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </div>
       </div>
-
     </div>
   </div>
 
- <!-- Écran de Validation Finale -->
+  <!-- Écran de Validation Finale -->
   <div id="final-screen" class="modal">
     <div class="modal-content final-card-modal">
-      
-      <!-- Badge Match Netflix -->
       <div class="match-badge-wrapper">
         <div class="match-percentage">99% DE MATCH</div>
         <i class="fa-solid fa-circle-check check-icon"></i>
@@ -280,13 +270,11 @@
       <h2 class="final-title">EXCELLENT CHOIX.</h2>
       <p class="final-subtitle">Le premier chapitre de notre soirée est prêt...</p>
 
-      <!-- Zone Récapitative Dynamique -->
       <div class="summary-box">
         <h4 id="summary-headline" class="summary-headline"></h4>
         <p id="summary-text" class="summary-text-custom"></p>
       </div>
 
-      <!-- Bouton WhatsApp sans message pré-rempli -->
       <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
         <i class="fa-brands fa-whatsapp"></i> Continuer la discussion sur WhatsApp
       </button>

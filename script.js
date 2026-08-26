@@ -53,7 +53,6 @@ function selectProfile(profileType) {
   const sound = document.getElementById("netflix-sound");
   const heart = document.querySelector(".netflix-heart");
 
-  // 1. Rendre le conteneur immédiatement visible
   if (introScreen) {
     introScreen.classList.remove("hidden");
     introScreen.style.display = "flex";
@@ -61,23 +60,20 @@ function selectProfile(profileType) {
     introScreen.style.visibility = "visible";
   }
 
-  // 2. Relancer l'animation du cœur
   if (heart) {
     heart.style.animation = 'none';
-    heart.offsetHeight; // Force le reflow
+    heart.offsetHeight; // Force reflow
     heart.style.animation = '';
     heart.classList.remove("animate");
     void heart.offsetWidth;
     heart.classList.add("animate");
   }
 
-  // 3. Jouer le son
   if (sound) {
     sound.currentTime = 0;
     sound.play().catch(e => console.log("Erreur audio :", e));
   }
 
-  // 4. Redirection vers la bannière principale
   setTimeout(() => {
     if (introScreen) {
       introScreen.classList.add("hidden");
@@ -87,7 +83,7 @@ function selectProfile(profileType) {
   }, 2300);
 }
 
-// Gestion de la navigation entre écrans
+// Remplace ta fonction goToScreen dans script.js par celle-ci :
 function goToScreen(screenId) {
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
@@ -96,10 +92,17 @@ function goToScreen(screenId) {
   const targetScreen = document.getElementById(screenId);
   if (targetScreen) {
     targetScreen.classList.add('active');
+    
+    // Forcer la lecture automatique des vidéos sur mobile lors de l'arrivée sur l'écran 2
+    if (screenId === 'reasons-screen') {
+      document.querySelectorAll('#reasons-screen video').forEach(video => {
+        video.muted = true; // Indispensable pour l'autoplay mobile
+        video.play().catch(e => console.log("Autoplay mobile bloqué :", e));
+      });
+    }
   }
 }
-
-// Ouverture de la modale d'options
+// Ouverture de la modale des choix
 function openChoiceModal() {
   const modal = document.getElementById("choice-modal");
   if (modal) modal.style.display = "flex";
@@ -109,34 +112,30 @@ function openChoiceModal() {
 function selectOption(optionKey) {
   selectedChoice = optionKey;
 
-  // Ferme la modale des choix
   const choiceModal = document.getElementById("choice-modal");
   if (choiceModal) choiceModal.style.display = "none";
 
-  // Récupère l'accroche associée
   const data = optionDetails[optionKey] || {
     headline: "Un rendez-vous d'exception...",
     text: "Le programme est prêt, il ne manque plus que toi."
   };
 
-  // Injecte les accroches personnalisées
   const headlineEl = document.getElementById("summary-headline");
   const textEl = document.getElementById("summary-text");
 
   if (headlineEl) headlineEl.innerText = data.headline;
   if (textEl) textEl.innerText = data.text;
 
-  // Affiche l'écran de confirmation
   const finalScreen = document.getElementById("final-screen");
   if (finalScreen) finalScreen.style.display = "flex";
 }
 
-// Ouvre la discussion WhatsApp vide directement
+// Ouverture de WhatsApp directe sans pré-remplissage
 function sendWhatsApp() {
   window.open(`https://wa.me/${MY_PHONE_NUMBER}`, '_blank');
 }
 
-// Contrôle manuel du carrousel
+// Contrôle manuel carrousel
 function moveCarousel(direction) {
   const container = document.getElementById('thumbnailRow');
   if (!container) return;
@@ -148,7 +147,7 @@ function moveCarousel(direction) {
   });
 }
 
-// Auto-scroll pour mobile
+// Défilement automatique mobile
 function startAutoScroll() {
   if (autoScrollTimer) clearInterval(autoScrollTimer);
   autoScrollTimer = setInterval(() => {
