@@ -83,7 +83,7 @@ function selectProfile(profileType) {
   }, 2300);
 }
 
-// Remplace ta fonction goToScreen dans script.js par celle-ci :
+// Changement d'écran
 function goToScreen(screenId) {
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
@@ -93,28 +93,30 @@ function goToScreen(screenId) {
   if (targetScreen) {
     targetScreen.classList.add('active');
     
-    // Forcer la lecture automatique des vidéos sur mobile lors de l'arrivée sur l'écran 2
     if (screenId === 'reasons-screen') {
       document.querySelectorAll('#reasons-screen video').forEach(video => {
-        video.muted = true; // Indispensable pour l'autoplay mobile
+        video.muted = true;
         video.play().catch(e => console.log("Autoplay mobile bloqué :", e));
       });
     }
   }
 }
+
 // Ouverture de la modale des choix
 function openChoiceModal() {
   const modal = document.getElementById("choice-modal");
   if (modal) modal.style.display = "flex";
 }
 
-// Sélection d'une option et passage à l'écran final
+// Sélection d'une option, déclenchement des confettis et passage à l'écran final
 function selectOption(optionKey) {
   selectedChoice = optionKey;
 
+  // 1. Ferme la modale de choix
   const choiceModal = document.getElementById("choice-modal");
   if (choiceModal) choiceModal.style.display = "none";
 
+  // 2. Prépare les textes de l'écran final
   const data = optionDetails[optionKey] || {
     headline: "Un rendez-vous d'exception...",
     text: "Le programme est prêt, il ne manque plus que toi."
@@ -126,11 +128,70 @@ function selectOption(optionKey) {
   if (headlineEl) headlineEl.innerText = data.headline;
   if (textEl) textEl.innerText = data.text;
 
+  // 3. Affiche l'écran final
   const finalScreen = document.getElementById("final-screen");
   if (finalScreen) finalScreen.style.display = "flex";
+
+  // 4. Déclenche l'explosion 100ms après l'affichage de l'écran final
+  setTimeout(() => {
+    lancerConfettis();
+  }, 100);
 }
 
-// Ouverture de WhatsApp directe sans pré-remplissage
+function lancerConfettis() {
+  const elements = ['💐', '🌹', '❤️', '💖', '✨', '🌸'];
+  const totalCount = 60; // Nombre idéal pour ne pas surcharger l'écran
+
+  for (let i = 0; i < totalCount; i++) {
+    // 1. Création de l'élément HTML natif (Netteté vectorielle garantie)
+    const item = document.createElement('div');
+    item.innerText = elements[Math.floor(Math.random() * elements.length)];
+
+    // 2. Position initiale (Départ en bas de l'écran avec dispersion)
+    const startX = Math.random() * 80 + 10; // Entre 10% et 90% de la largeur
+    const size = Math.random() * 1.2 + 1.8; // Taille variable entre 1.8rem et 3rem (très lisible)
+    const duration = Math.random() * 1.5 + 2.5; // Durée du vol (2.5s à 4s pour un effet doux)
+    const delay = Math.random() * 0.4; // Léger décalage entre chaque apparition
+
+    // 3. Application des styles d'animation natifs
+    Object.assign(item.style, {
+      position: 'fixed',
+      left: `${startX}vw`,
+      bottom: '-50px',
+      fontSize: `${size}rem`,
+      zIndex: '999999',
+      pointerEvents: 'none',
+      userSelect: 'none',
+      opacity: '0',
+      filter: 'drop-shadow(0 4px 10px rgba(229, 9, 20, 0.3))',
+      transition: `transform ${duration}s cubic-bezier(0.12, 0.8, 0.32, 1), opacity 0.6s ease`
+    });
+
+    document.body.appendChild(item);
+
+    // 4. Déclenchement du mouvement (Montée féérique avec balancement naturel)
+    setTimeout(() => {
+      const moveX = (Math.random() - 0.5) * 160; // Mouvement de dérive latérale
+      const moveY = -(window.innerHeight * 0.85 + Math.random() * 100); // Hauteur d'envol
+      const rotation = (Math.random() - 0.5) * 90; // Rotation douce (pas de vrille rapide)
+
+      item.style.opacity = '1';
+      item.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotation}deg)`;
+    }, delay * 1000);
+
+    // 5. Fondu de disparition élégant en fin de course
+    setTimeout(() => {
+      item.style.opacity = '0';
+    }, (duration + delay - 0.8) * 1000);
+
+    // 6. Nettoyage du DOM
+    setTimeout(() => {
+      item.remove();
+    }, (duration + delay + 0.2) * 1000);
+  }
+}
+
+// Ouverture de WhatsApp
 function sendWhatsApp() {
   window.open(`https://wa.me/${MY_PHONE_NUMBER}`, '_blank');
 }
