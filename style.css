@@ -997,7 +997,7 @@ html, body {
 
   /* Section Épisodes avec scroll fluide */
   .row-section {
-    padding: 20px 4% 40px !important;
+    padding: 0px 4% 40px !important;
     margin-top: 0 !important;
     display: block !important;
     overflow: visible !important;
@@ -1095,5 +1095,20 @@ html, body {
 
   .modal-header h2, .final-title {
     font-size: 1.3rem !important;
+  }
+  
+  /* Les noms sous les avatars restent blancs et bien lisibles */
+  .profile-card span {
+    color: #ffffff !important;
+    font-size: 0.9rem !important; /* Taille ajustée et plus discrète pour mobile */
+    font-weight: 300 !important;
+    opacity: 0.95;
+  }
+
+
+  /* Effet d'enfoncement très fluide au toucher */
+  .profile-card:active {
+    transform: scale(0.95) !important;
+    transition: transform 0.1s ease !important;
   }
 }
