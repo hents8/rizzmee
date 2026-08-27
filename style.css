@@ -771,21 +771,28 @@ html, body {
   box-shadow: 0 8px 20px rgba(229, 9, 20, 0.25);
 }
 
+/* Suppression du carré gris et ajustement du conteneur */
 .card-icon {
-  font-size: 1.8rem;
-  width: 46px;
-  height: 46px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  width: 55px !important;
+  height: 55px !important;
+  background: transparent !important; /* Enlève le fond gris */
+  border-radius: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  overflow: hidden;
   flex-shrink: 0;
 }
 
+/* Enlève aussi le fond au survol pour éviter qu'un carré réapparaisse */
 .choice-card:hover .card-icon {
-  background: #E50914;
+  background: transparent !important;
+}
+
+/* Agrandit l'animation Lottie à l'intérieur */
+.card-icon dotlottie-player {
+  width: 52px !important;
+  height: 52px !important;
+  transform: scale(1.15); /* Légère amplification visuelle */
 }
 
 .card-text {
