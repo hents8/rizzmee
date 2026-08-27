@@ -773,8 +773,8 @@ html, body {
 
 /* Suppression du carré gris et ajustement du conteneur */
 .card-icon {
-  width: 55px !important;
-  height: 55px !important;
+  width: 70px !important;
+  height: 70px !important;
   background: transparent !important; /* Enlève le fond gris */
   border-radius: 0 !important;
   display: flex !important;
