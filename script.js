@@ -2,6 +2,7 @@ const MY_PHONE_NUMBER = "261326602543";
 let selectedChoice = "";
 let isManagingProfiles = false;
 let autoScrollTimer = null;
+let volumeInterval = null;
 
 // Audio pour la sélection d'options
 const optionSound = new Audio('./audio/wow.mp3'); 
@@ -87,7 +88,7 @@ function selectProfile(profileType) {
   }, 2300);
 }
 
-// Changement d'écran
+// Changement d'écran avec gestion de la musique d'ambiance
 function goToScreen(screenId) {
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
@@ -97,23 +98,29 @@ function goToScreen(screenId) {
   if (targetScreen) {
     targetScreen.classList.add('active');
     
+    // Si on entre sur l'écran "reasons-screen" -> Fondu entrant musique
     if (screenId === 'reasons-screen') {
+      playTrailerMusic();
+      
       document.querySelectorAll('#reasons-screen video').forEach(video => {
         video.muted = true;
         video.play().catch(e => console.log("Autoplay mobile bloqué :", e));
       });
+    } else {
+      stopTrailerMusic();
     }
   }
 }
 
 // Ouverture de la modale des choix
 function openChoiceModal() {
+  stopTrailerMusic();
   const modal = document.getElementById("choice-modal");
   if (modal) modal.style.display = "flex";
 }
 
-// Animation de saisie réaliste et rythmée
-function typeWriterAnimation(elementId, text) {
+// Animation de saisie texte
+function typeWriterAnimation(elementId, text, speed = 80) {
   const element = document.getElementById(elementId);
   if (!element) return;
   
@@ -124,15 +131,13 @@ function typeWriterAnimation(elementId, text) {
     if (i < text.length) {
       element.innerText += text.charAt(i);
       i++;
-      // Vitesse naturelle (entre 70ms et 110ms par lettre)
-      const randomSpeed = Math.floor(Math.random() * 40) + 70;
-      setTimeout(type, randomSpeed);
+      setTimeout(type, speed);
     }
   }
   type();
 }
 
-// Mets à jour ta fonction selectOption existante :
+// Sélection d'une option finale
 function selectOption(optionKey) {
   if (optionSound) {
     optionSound.currentTime = 0;
@@ -158,7 +163,6 @@ function selectOption(optionKey) {
   const finalScreen = document.getElementById("final-screen");
   if (finalScreen) finalScreen.style.display = "flex";
 
-  // Déclenche la frappe du texte du bouton au bout de 400ms
   setTimeout(() => {
     typeWriterAnimation("typewriterText", "Écrire la suite de notre histoire 🫣", 45);
     lancerConfettis();
@@ -213,7 +217,7 @@ function lancerConfettis() {
   }
 }
 
-// Ouverture de WhatsApp
+// Redirection WhatsApp
 function sendWhatsApp() {
   window.open(`https://wa.me/${MY_PHONE_NUMBER}`, '_blank');
 }
@@ -234,54 +238,28 @@ function startAutoScroll() {
   }, 5500);
 }
 
-// 1. Désactiver le menu du clic droit
-document.addEventListener('contextmenu', (e) => {
-  e.preventDefault();
-});
-
-// 2. Bloquer les raccourcis clavier de l'inspecteur et du code source
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'F12') {
-    e.preventDefault();
-    return false;
-  }
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-    e.preventDefault();
-    return false;
-  }
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
-    e.preventDefault();
-    return false;
-  }
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
-    e.preventDefault();
-    return false;
-  }
-  if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U')) {
-    e.preventDefault();
-    return false;
-  }
-  if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+// Sécurités basiques (anti-clic droit et inspecteur)
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (e.key === 'F12' || 
+     ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
+     ((e.ctrlKey || e.metaKey) && ['U', 'S'].includes(e.key.toUpperCase()))) {
     e.preventDefault();
     return false;
   }
 });
 
-// Variable globale pour gérer l'intervalle de volume
-let volumeInterval = null;
-
-// A. Démarre la musique avec montée progressive du volume (Fade-In)
+// Musique Fade-In
 function playTrailerMusic() {
   const music = document.getElementById("trailer-music");
   if (!music) return;
 
   if (volumeInterval) clearInterval(volumeInterval);
   
-  music.volume = 0; // Démarre à zéro
-  music.currentTime = 0; // Repart du début de la chanson de 5 min
+  music.volume = 0;
+  music.currentTime = 0;
   
   music.play().then(() => {
-    // Augmente progressivement le volume jusqu'à 30% (en 1.5 seconde)
     let vol = 0;
     volumeInterval = setInterval(() => {
       if (vol < 0.3) {
@@ -291,55 +269,23 @@ function playTrailerMusic() {
         clearInterval(volumeInterval);
       }
     }, 100);
-  }).catch(e => console.log("Musique bloquée par le navigateur :", e));
+  }).catch(e => console.log("Musique bloquée :", e));
 }
 
-// B. Arrête la musique avec descente progressive du volume (Fade-Out)
+// Musique Fade-Out
 function stopTrailerMusic() {
   const music = document.getElementById("trailer-music");
   if (!music || music.paused) return;
 
   if (volumeInterval) clearInterval(volumeInterval);
 
-  // Baisse progressivement le volume jusqu'à zéro (en 1 seconde)
   volumeInterval = setInterval(() => {
     if (music.volume > 0.03) {
       music.volume -= 0.03;
     } else {
       music.volume = 0;
-      music.pause(); // Coupe la musique quand le son est au plus bas
+      music.pause();
       clearInterval(volumeInterval);
     }
   }, 80);
-}
-
-// C. Mettre à jour la fonction goToScreen existante
-function goToScreen(screenId) {
-  document.querySelectorAll('.screen').forEach(screen => {
-    screen.classList.remove('active');
-  });
-  
-  const targetScreen = document.getElementById(screenId);
-  if (targetScreen) {
-    targetScreen.classList.add('active');
-    
-    // Si on entre sur l'écran "reasons-screen" (fotoanantsika) -> On lance le son en Fade-In
-    if (screenId === 'reasons-screen') {
-      playTrailerMusic();
-      
-      document.querySelectorAll('#reasons-screen video').forEach(video => {
-        video.muted = true;
-        video.play().catch(e => console.log("Autoplay mobile bloqué :", e));
-      });
-    }
-  }
-}
-
-// D. Mettre à jour la fonction openChoiceModal existante
-function openChoiceModal() {
-  // Déclenche le fondu sortant dès qu'on clique sur n'importe quel bouton pour ouvrir les choix
-  stopTrailerMusic();
-
-  const modal = document.getElementById("choice-modal");
-  if (modal) modal.style.display = "flex";
 }

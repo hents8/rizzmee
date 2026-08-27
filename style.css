@@ -777,9 +777,10 @@ html, body {
   height: 46px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden;
   flex-shrink: 0;
 }
 
@@ -899,23 +900,13 @@ html, body {
   line-height: 1.4 !important;
 }
 
-/* Animation de balayage lumineux sur le texte */
-@keyframes textShimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/*/* Carte compacte avec paddings optimisés */
+/* Carte compacte avec paddings optimisés */
 .netflix-action-card.light-green-theme {
   width: 100%;
   background: linear-gradient(135deg, #ffffff 0%, #e8f9ec 100%) !important;
   border: 1.5px solid #1BD742 !important;
   border-radius: 12px !important;
-  padding: 8px 14px !important; /* Espacement réduit autour du contenu */
+  padding: 8px 14px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -933,7 +924,7 @@ html, body {
 .card-left {
   display: flex;
   align-items: center;
-  gap: 8px; /* Espace réduit entre le logo WhatsApp et le texte */
+  gap: 8px;
   flex: 1;
 }
 
@@ -943,7 +934,6 @@ html, body {
   gap: 2px;
 }
 
-/* Texte sans barre verticale */
 .typewriter-text-dark {
   color: #000000 !important;
   font-family: 'Netflix Sans Local', -apple-system, sans-serif !important;
@@ -951,11 +941,10 @@ html, body {
   font-weight: 600 !important;
   letter-spacing: -0.1px !important;
   white-space: pre-wrap;
-  border: none !important; /* Suppression de la barre verticale */
+  border: none !important;
   padding: 0 !important;
 }
 
-/* Animation des 3 points en vague (typing indicator) */
 .typing-dots {
   display: inline-flex;
   align-items: center;
@@ -985,7 +974,6 @@ html, body {
   }
 }
 
-/* Bouton flèche compact */
 .card-arrow-dark {
   width: 28px;
   height: 28px;

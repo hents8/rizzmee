@@ -236,7 +236,16 @@
 
       <div class="options-grid">
         <div class="choice-card" onclick="selectOption('Cocktails & sunset 🍹')">
-          <div class="card-icon">🍹</div>
+          <div class="card-icon">
+            <dotlottie-player 
+              src="./cocktail.lottie" 
+              background="transparent" 
+              speed="1" 
+              style="width: 32px; height: 32px;" 
+              loop 
+              autoplay>
+            </dotlottie-player>
+          </div>
           <div class="card-text">
             <h4>Sunset & Cocktails</h4>
             <p>Une terrasse vue ville, une boisson fraîche et des rires complices au coucher du soleil.</p>
@@ -245,7 +254,16 @@
         </div>
 
         <div class="choice-card" onclick="selectOption('Bowling & Arcade 🎳')">
-          <div class="card-icon">🎳</div>
+          <div class="card-icon">
+            <dotlottie-player 
+              src="./bowling.lottie" 
+              background="transparent" 
+              speed="1" 
+              style="width: 32px; height: 32px;" 
+              loop 
+              autoplay>
+            </dotlottie-player>
+          </div>
           <div class="card-text">
             <h4>Challenge & Arcade</h4>
             <p>Une soirée fun, un brin de compétition, du bowling et un retour en enfance.</p>
@@ -254,7 +272,16 @@
         </div>
 
         <div class="choice-card" onclick="selectOption('Balade & Glace 🍦')">
-          <div class="card-icon">🍦</div>
+          <div class="card-icon">
+            <dotlottie-player 
+              src="./icecream.lottie" 
+              background="transparent" 
+              speed="1" 
+              style="width: 32px; height: 32px;" 
+              loop 
+              autoplay>
+            </dotlottie-player>
+          </div>
           <div class="card-text">
             <h4>Balade & Gourmandise</h4>
             <p>Déambuler sous les lumières nocturnes avec une glace et nos plus belles conversations.</p>
@@ -281,35 +308,36 @@
         <p id="summary-text" class="summary-text-custom"></p>
       </div>
 
-    <div class="netflix-action-card light-green-theme" onclick="sendWhatsApp()">
-  <div class="card-left">
-    <dotlottie-player 
-      src="./Whatsapp.lottie" 
-      background="transparent" 
-      speed="1" 
-      style="width: 58px; height: 58px;" 
-      loop 
-      autoplay>
-    </dotlottie-player>
-    
-    <div class="text-wrapper">
-      <span class="typewriter-text-dark" id="typewriterText"></span>
-      <!-- Animation 3 points en vague -->
-      <span class="typing-dots">
-        <span>.</span><span>.</span><span>.</span>
-      </span>
-    </div>
-  </div>
+      <div class="netflix-action-card light-green-theme" onclick="sendWhatsApp()">
+        <div class="card-left">
+          <dotlottie-player 
+            src="./Whatsapp.lottie" 
+            background="transparent" 
+            speed="1" 
+            style="width: 38px; height: 38px;" 
+            loop 
+            autoplay>
+          </dotlottie-player>
+          
+          <div class="text-wrapper">
+            <span class="typewriter-text-dark" id="typewriterText"></span>
+            <!-- Animation 3 points en vague -->
+            <span class="typing-dots">
+              <span>.</span><span>.</span><span>.</span>
+            </span>
+          </div>
+        </div>
 
-  <div class="card-arrow-dark">
-    <i class="fa-solid fa-chevron-right"></i>
-  </div>
-</div>
+        <div class="card-arrow-dark">
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+      </div>
 
       <span class="final-note">À très vite pour ce moment unique 🌹</span>
     </div>
   </div>
-	<audio id="trailer-music" src="./audio/trailer-bg.mp3" loop preload="auto"></audio>
+
+  <audio id="trailer-music" src="./audio/trailer-bg.mp3" loop preload="auto"></audio>
   <script src="script.js"></script>
 </body>
 </html>
