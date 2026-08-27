@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <!-- Chargeur Lottie officiel -->
   <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -280,22 +281,27 @@
         <p id="summary-text" class="summary-text-custom"></p>
       </div>
 
-      <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
-        <dotlottie-player 
-          src="./Whatsapp.lottie" 
-          background="transparent" 
-          speed="1" 
-          style="width: 50px; height: 50px;" 
-          loop 
-          autoplay>
-        </dotlottie-player>
-        <span>Écrire la suite de notre histoire... ✨</span>
-      </button>
+    <div class="netflix-action-card light-green-theme" onclick="sendWhatsApp()">
+  <div class="card-left">
+    <dotlottie-player 
+      src="./Whatsapp.lottie" 
+      background="transparent" 
+      speed="1" 
+      style="width: 42px; height: 42px;" 
+      loop 
+      autoplay>
+    </dotlottie-player>
+    <span class="typewriter-text-dark" id="typewriterText"></span>
+  </div>
+  <div class="card-arrow-dark">
+    <i class="fa-solid fa-chevron-right"></i>
+  </div>
+</div>
 
       <span class="final-note">À très vite pour ce moment unique 🌹</span>
     </div>
   </div>
-
+	<audio id="trailer-music" src="./audio/trailer-bg.mp3" loop preload="auto"></audio>
   <script src="script.js"></script>
 </body>
 </html>

@@ -899,33 +899,85 @@ html, body {
   line-height: 1.4 !important;
 }
 
-/* Bouton WhatsApp Vert Logo #1BD742 */
-.btn-whatsapp {
-  width: 100%;
-  background: rgba(27, 215, 66, 0.12) !important;
-  color: #1BD742 !important;
-  font-family: 'Netflix Sans Local', -apple-system, sans-serif !important;
-  font-size: 0.95rem !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.3px !important;
-  padding: 8px 18px !important;
-  border-radius: 10px !important;
-  border: 1px solid rgba(27, 215, 66, 0.4) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  box-shadow: 0 4px 15px rgba(27, 215, 66, 0.15) !important;
-  transition: all 0.25s ease !important;
-  cursor: pointer !important;
+/* Animation de balayage lumineux sur le texte */
+@keyframes textShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
-.btn-whatsapp:hover {
-  background: rgba(27, 215, 66, 0.22) !important;
-  border-color: #1BD742 !important;
-  color: #ffffff !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(27, 215, 66, 0.35) !important;
+/* Carte d'action à fond clair/lumineux */
+.netflix-action-card.light-green-theme {
+  width: 100%;
+  /* Fond dégradé vert pastel/blanc très lumineux */
+  background: linear-gradient(135deg, #ffffff 0%, #e8f9ec 100%) !important;
+  border: 2px solid #1BD742 !important;
+  border-radius: 12px !important;
+  padding: 12px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  cursor: pointer !important;
+  box-shadow: 0 8px 25px rgba(27, 215, 66, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+}
+
+/* Effet interactif au survol */
+.netflix-action-card.light-green-theme:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #d2f4d9 100%) !important;
+  transform: translateY(-2px) scale(1.01) !important;
+  box-shadow: 0 12px 30px rgba(27, 215, 66, 0.4) !important;
+}
+
+/* Alignement interne */
+.card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+/* Texte en noir pur avec la police Netflix Sans */
+.typewriter-text-dark {
+  color: #000000 !important;
+  font-family: 'Netflix Sans Local', -apple-system, sans-serif !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px !important;
+  border-right: 2px solid #1BD742; /* Curseur vert */
+  padding-right: 4px;
+  white-space: pre-wrap;
+  animation: blinkCursor 0.9s infinite;
+}
+
+/* Flèche d'action foncée à droite */
+.card-arrow-dark {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1BD742;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000; /* Flèche noire */
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.netflix-action-card.light-green-theme:hover .card-arrow-dark {
+  background: #14b535;
+  color: #ffffff; /* La flèche passe au blanc au survol */
+  transform: translateX(4px);
+}
+
+@keyframes blinkCursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #1BD742; }
 }
 
 dotlottie-player {
