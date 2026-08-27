@@ -281,8 +281,16 @@
       </div>
 
       <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
-        <i class="fa-brands fa-whatsapp"></i> Continuer la discussion sur WhatsApp
-      </button>
+		  <dotlottie-player 
+			src="./Whatsapp.lottie" 
+			background="transparent" 
+			speed="1" 
+			style="width: 35px; height: 35px;" 
+			loop 
+			autoplay>
+		  </dotlottie-player>
+		  <span>Continuer la discussion sur WhatsApp</span>
+		</button>
 
       <span class="final-note">À très vite pour ce moment unique 🌹</span>
     </div>
@@ -291,5 +299,6 @@
   <!-- Inclusions des scripts dans l'ordre exact d'exécution -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
+  <script src="https://unpkg.com/@dotlottie/player-component@1.0.0/dist/dotlottie-player.js"></script>
 </body>
 </html>

@@ -935,6 +935,38 @@ canvas {
   position: fixed !important;
 }
 
+.btn-whatsapp {
+  width: 100%;
+  background: rgba(37, 211, 102, 0.12) !important;
+  color: #25D366 !important;
+  font-family: 'Netflix Sans Local', -apple-system, sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(37, 211, 102, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.25) !important;
+  border-color: #25D366 !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Empêche l'animation de bloquer le clic sur le bouton */
+dotlottie-player {
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ==========================================
    8. RESPONSIVE MOBILE OPTIMISÉ (FIX SCROLL & VIDEO)
    ========================================== */
