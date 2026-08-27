@@ -3,6 +3,7 @@ let selectedChoice = "";
 let isManagingProfiles = false;
 let autoScrollTimer = null;
 let volumeInterval = null;
+let spookyVolumeInterval = null;
 
 // Audio pour la sélection d'options
 const optionSound = new Audio('./audio/wow.mp3'); 
@@ -112,9 +113,52 @@ function goToScreen(screenId) {
   }
 }
 
+// Lancer le son d'hésitation "Spooky Season"
+function playSpookyMusic() {
+  const spooky = document.getElementById("spooky-music");
+  if (!spooky) return;
+
+  if (spookyVolumeInterval) clearInterval(spookyVolumeInterval);
+
+  spooky.volume = 0;
+  spooky.currentTime = 0;
+
+  spooky.play().then(() => {
+    let vol = 0;
+    spookyVolumeInterval = setInterval(() => {
+      if (vol < 0.4) {
+        vol += 0.04;
+        spooky.volume = Math.min(vol, 0.4);
+      } else {
+        clearInterval(spookyVolumeInterval);
+      }
+    }, 80);
+  }).catch(e => console.log("Son Spooky bloqué par le navigateur :", e));
+}
+
+// Arrêter le son Spooky
+function stopSpookyMusic() {
+  const spooky = document.getElementById("spooky-music");
+  if (!spooky || spooky.paused) return;
+
+  if (spookyVolumeInterval) clearInterval(spookyVolumeInterval);
+
+  spookyVolumeInterval = setInterval(() => {
+    if (spooky.volume > 0.04) {
+      spooky.volume -= 0.04;
+    } else {
+      spooky.volume = 0;
+      spooky.pause();
+      clearInterval(spookyVolumeInterval);
+    }
+  }, 50);
+}
+
 // Ouverture de la modale des choix
 function openChoiceModal() {
   stopTrailerMusic();
+  playSpookyMusic(); // Lance le son Spooky pendant l'hésitation
+
   const modal = document.getElementById("choice-modal");
   if (modal) modal.style.display = "flex";
 }
@@ -139,6 +183,8 @@ function typeWriterAnimation(elementId, text, speed = 80) {
 
 // Sélection d'une option finale
 function selectOption(optionKey) {
+  stopSpookyMusic(); // Coupe le son Spooky lors du choix
+
   if (optionSound) {
     optionSound.currentTime = 0;
     optionSound.play().catch(e => console.log("Erreur audio option :", e));
@@ -249,7 +295,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Musique Fade-In
+// Musique Trailer Fade-In
 function playTrailerMusic() {
   const music = document.getElementById("trailer-music");
   if (!music) return;
@@ -272,7 +318,7 @@ function playTrailerMusic() {
   }).catch(e => console.log("Musique bloquée :", e));
 }
 
-// Musique Fade-Out
+// Musique Trailer Fade-Out
 function stopTrailerMusic() {
   const music = document.getElementById("trailer-music");
   if (!music || music.paused) return;
