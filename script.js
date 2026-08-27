@@ -160,7 +160,7 @@ function selectOption(optionKey) {
 
   // Déclenche la frappe du texte du bouton au bout de 400ms
   setTimeout(() => {
-    typeWriterAnimation("typewriterText", "Écrire la suite de notre histoire... 🫣", 45);
+    typeWriterAnimation("typewriterText", "Écrire la suite de notre histoire 🫣", 45);
     lancerConfettis();
   }, 400);
 }
