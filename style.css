@@ -935,36 +935,44 @@ canvas {
   position: fixed !important;
 }
 
+/* Bouton d'action WhatsApp aux couleurs du logo #1BD742 */
 .btn-whatsapp {
   width: 100%;
-  background: rgba(37, 211, 102, 0.12) !important;
-  color: #25D366 !important;
+  background: rgba(27, 215, 66, 0.12) !important;
+  color: #1BD742 !important;
   font-family: 'Netflix Sans Local', -apple-system, sans-serif !important;
   font-size: 0.95rem !important;
   font-weight: 500 !important;
-  padding: 10px 20px !important;
-  border-radius: 8px !important;
-  border: 1px solid rgba(37, 211, 102, 0.4) !important;
+  letter-spacing: 0.3px !important;
+  padding: 8px 18px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(27, 215, 66, 0.4) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 12px !important;
-  cursor: pointer !important;
+  gap: 8px !important;
+  box-shadow: 0 4px 15px rgba(27, 215, 66, 0.15) !important;
   transition: all 0.25s ease !important;
+  cursor: pointer !important;
 }
 
 .btn-whatsapp:hover {
-  background: rgba(37, 211, 102, 0.25) !important;
-  border-color: #25D366 !important;
+  background: rgba(27, 215, 66, 0.22) !important;
+  border-color: #1BD742 !important;
+  color: #ffffff !important;
   transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(27, 215, 66, 0.35) !important;
 }
 
-/* Empêche l'animation de bloquer le clic sur le bouton */
+/* Ajustement facultatif pour la carte de confirmation finale */
+.final-card-modal {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(27, 215, 66, 0.2) !important;
+}
+
+/* Évite de bloquer l'interaction au clic sur le composant Lottie */
 dotlottie-player {
   pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-shrink: 0;
 }
 
 /* ==========================================
