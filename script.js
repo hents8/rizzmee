@@ -108,15 +108,24 @@ function openChoiceModal() {
   if (modal) modal.style.display = "flex";
 }
 
-// Sélection d'une option, déclenchement des confettis et passage à l'écran final
+// 1. Déclaration du son de sélection (à mettre au début du script.js)
+const optionSound = new Audio('./audio/wow.mp3'); 
+optionSound.volume = 0.5; // Ajuste le volume (entre 0.0 et 1.0)
+
 function selectOption(optionKey) {
+  // 2. Joue le son au moment exact du clic
+  if (optionSound) {
+    optionSound.currentTime = 0; // Réinitialise si la personne clique rapidement
+    optionSound.play().catch(e => console.log("Erreur audio option :", e));
+  }
+
   selectedChoice = optionKey;
 
-  // 1. Ferme la modale de choix
+  // 3. Ferme la modale de choix
   const choiceModal = document.getElementById("choice-modal");
   if (choiceModal) choiceModal.style.display = "none";
 
-  // 2. Prépare les textes de l'écran final
+  // 4. Prépare les textes de l'écran final
   const data = optionDetails[optionKey] || {
     headline: "Un rendez-vous d'exception...",
     text: "Le programme est prêt, il ne manque plus que toi."
@@ -128,11 +137,11 @@ function selectOption(optionKey) {
   if (headlineEl) headlineEl.innerText = data.headline;
   if (textEl) textEl.innerText = data.text;
 
-  // 3. Affiche l'écran final
+  // 5. Affiche l'écran final
   const finalScreen = document.getElementById("final-screen");
   if (finalScreen) finalScreen.style.display = "flex";
 
-  // 4. Déclenche l'explosion 100ms après l'affichage de l'écran final
+  // 6. Déclenche la pluie d'émojis
   setTimeout(() => {
     lancerConfettis();
   }, 100);
