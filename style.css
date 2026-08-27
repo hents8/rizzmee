@@ -1,3 +1,20 @@
+/* Désactive la sélection de texte et le drag & drop des images */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
 /* ==========================================
    1. INTRO TRANSITION CŒUR
    ========================================== */
@@ -205,7 +222,6 @@ html, body {
   color: white;
 }
 
-/* Bouton Gérer les profils */
 .btn-manage {
   margin-top: 2.2rem;
   background: transparent;
@@ -287,7 +303,6 @@ html, body {
   overflow: hidden;
 }
 
-/* Image d'arrière-plan avec cadrage fixe sur le visage */
 .hero-bg-img {
   position: absolute;
   top: 0;
@@ -295,7 +310,7 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 40%; /* 40% garde le visage toujours visible et bien placé */
+  object-position: center 40%;
   z-index: 1;
 }
 
@@ -304,7 +319,6 @@ html, body {
   z-index: 2;
   min-height: 100vh;
   min-height: 100dvh;
-  /* Dégradé noir par-dessus l'image */
   background: linear-gradient(180deg,
               transparent 0%,
               transparent 40%,
@@ -371,20 +385,20 @@ html, body {
 /* ==========================================
    6. ÉCRAN 2 : DASHBOARD NETFLIX
    ========================================== */
-   #reasons-screen {
-     display: none;
-     background-color: #141414;
-     width: 100%;
-     min-height: 100vh;
-     min-height: 100dvh;
-     position: relative;
-     overflow-y: auto !important; /* Force le scroll vertical */
-     overflow-x: hidden;
-   }
+#reasons-screen {
+  display: none;
+  background-color: #141414;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
 
-   #reasons-screen.active {
-     display: block !important; /* Utiliser block au lieu de flex pour un scroll fluide */
-   }
+#reasons-screen.active {
+  display: block !important;
+}
 
 .nav-links {
   display: flex;
@@ -559,7 +573,7 @@ html, body {
 
 .row-section {
   flex: 1;
-  padding: 5px 4% 30px;
+  padding: 5px 4% 60px !important;
   margin-top: -5px;
   display: flex;
   flex-direction: column;
@@ -677,7 +691,7 @@ html, body {
 }
 
 /* ==========================================
-   7. MODALES ET VALIDATION FINALE
+   7. MODALES ET VALIDATION FINALE (#1BD742)
    ========================================== */
 .modal {
   display: none;
@@ -813,7 +827,7 @@ html, body {
   max-width: 440px !important;
   width: 90% !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(46, 204, 113, 0.2) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(27, 215, 66, 0.2) !important;
   animation: zoomIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -826,21 +840,21 @@ html, body {
 }
 
 .match-percentage {
-  color: #2ecc71;
+  color: #1BD742;
   font-weight: 700;
   font-size: 0.85rem;
   letter-spacing: 1.5px;
-  background: rgba(46, 204, 113, 0.12);
+  background: rgba(27, 215, 66, 0.12);
   padding: 4px 12px;
   border-radius: 20px;
-  border: 1px solid rgba(46, 204, 113, 0.3);
+  border: 1px solid rgba(27, 215, 66, 0.3);
 }
 
 .final-card-modal .check-icon {
   font-size: 3rem !important;
-  color: #2ecc71 !important;
+  color: #1BD742 !important;
   margin-bottom: 0 !important;
-  filter: drop-shadow(0 0 10px rgba(46, 204, 113, 0.5));
+  filter: drop-shadow(0 0 10px rgba(27, 215, 66, 0.5));
 }
 
 .final-title {
@@ -885,57 +899,7 @@ html, body {
   line-height: 1.4 !important;
 }
 
-.btn-whatsapp {
-  width: 100%;
-  background: rgba(37, 211, 102, 0.1) !important;
-  color: #25D366 !important;
-  font-family: 'Netflix Sans Local', -apple-system, sans-serif !important;
-  font-size: 0.95rem !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.3px !important;
-  padding: 14px 20px !important;
-  border-radius: 8px !important;
-  border: 1px solid rgba(37, 211, 102, 0.4) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 10px !important;
-  box-shadow: none !important;
-  transition: all 0.25s ease !important;
-  cursor: pointer !important;
-}
-
-.btn-whatsapp i {
-  font-size: 1.15rem !important;
-  color: #25D366 !important;
-}
-
-.btn-whatsapp:hover {
-  background: rgba(37, 211, 102, 0.2) !important;
-  border-color: #25D366 !important;
-  color: #ffffff !important;
-  transform: translateY(-1px) !important;
-}
-
-.btn-whatsapp:hover i {
-  color: #ffffff !important;
-}
-
-.final-note {
-  display: block;
-  font-size: 0.72rem;
-  color: #757575;
-  margin-top: 14px;
-  font-weight: 300;
-}
-
-canvas {
-  z-index: 999999 !important;
-  pointer-events: none !important;
-  position: fixed !important;
-}
-
-/* Bouton d'action WhatsApp aux couleurs du logo #1BD742 */
+/* Bouton WhatsApp Vert Logo #1BD742 */
 .btn-whatsapp {
   width: 100%;
   background: rgba(27, 215, 66, 0.12) !important;
@@ -964,22 +928,23 @@ canvas {
   box-shadow: 0 6px 20px rgba(27, 215, 66, 0.35) !important;
 }
 
-/* Ajustement facultatif pour la carte de confirmation finale */
-.final-card-modal {
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(27, 215, 66, 0.2) !important;
-}
-
-/* Évite de bloquer l'interaction au clic sur le composant Lottie */
 dotlottie-player {
   pointer-events: none;
   flex-shrink: 0;
 }
 
+.final-note {
+  display: block;
+  font-size: 0.72rem;
+  color: #757575;
+  margin-top: 14px;
+  font-weight: 300;
+}
+
 /* ==========================================
-   8. RESPONSIVE MOBILE OPTIMISÉ (FIX SCROLL & VIDEO)
+   8. RESPONSIVE MOBILE OPTIMISÉ
    ========================================== */
 @media (max-width: 768px) {
-  /* Permet le scroll vertical sur tout l'écran 2 */
   #reasons-screen {
     overflow-y: auto !important;
     height: auto !important;
@@ -997,7 +962,6 @@ dotlottie-player {
     display: none;
   }
 
-  /* Bannière mobile */
   .hero-banner {
     height: auto !important;
     min-height: 380px !important;
@@ -1059,9 +1023,8 @@ dotlottie-player {
     font-size: 0.9rem !important;
   }
 
-  /* Section Épisodes avec scroll fluide */
   .row-section {
-    padding: 20px 4% 60px !important; /* Marge en bas pour laisser respirer le texte */
+    padding: 20px 4% 60px !important;
     width: 100%;
   }
 
@@ -1110,7 +1073,6 @@ dotlottie-player {
     max-height: 200px !important;
     margin-bottom: 8px !important;
     width: 100% !important;
-    /* Empêche les contrôles par défaut du navigateur sur la vidéo */
     pointer-events: none;
   }
 
@@ -1123,10 +1085,9 @@ dotlottie-player {
     font-size: 0.8rem !important;
     line-height: 1.35 !important;
     color: #d2d2d2 !important;
-    display: block !important; /* Affiche tout le texte sans couper sur mobile */
+    display: block !important;
   }
 
-  /* Reste du responsive */
   .hero-title {
     font-size: 1.6rem;
     letter-spacing: -0.5px;
@@ -1158,16 +1119,13 @@ dotlottie-player {
     font-size: 1.3rem !important;
   }
 
-  /* Les noms sous les avatars restent blancs et bien lisibles */
   .profile-card span {
     color: #ffffff !important;
-    font-size: 0.9rem !important; /* Taille ajustée et plus discrète pour mobile */
+    font-size: 0.9rem !important;
     font-weight: 300 !important;
     opacity: 0.95;
   }
 
-
-  /* Effet d'enfoncement très fluide au toucher */
   .profile-card:active {
     transform: scale(0.95) !important;
     transition: transform 0.1s ease !important;

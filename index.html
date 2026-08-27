@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <!-- Chargeur Lottie officiel -->
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 <body>
 
@@ -78,7 +80,6 @@
       </button>
     </nav>
 
-    <!-- Image dédiée positionnée en arrière-plan -->
     <img src="./images/cinema.png" alt="Hero Background" class="hero-bg-img">
 
     <div class="hero">
@@ -108,7 +109,6 @@
       </button>
     </nav>
 
-    <!-- Banner Principal -->
     <div class="hero-banner">
       <div class="hero-banner-content">
         <div class="neon-title">ILAY <br> FOTOANANTSIKA</div>
@@ -157,7 +157,7 @@
           <!-- Épisode 1 -->
           <div class="thumb-card" onclick="openChoiceModal()">
             <div class="thumb-wrapper">
-              <video autoplay loop muted playsinline webkit-playsinline>
+              <video autoplay loop muted playsinline webkit-playsinline controlsList="nodownload">
                 <source src="./videos/scene1.mp4" type="video/mp4">
               </video>
             </div>
@@ -179,7 +179,7 @@
           <!-- Épisode 2 -->
           <div class="thumb-card" onclick="openChoiceModal()">
             <div class="thumb-wrapper">
-              <video autoplay loop muted playsinline webkit-playsinline>
+              <video autoplay loop muted playsinline webkit-playsinline controlsList="nodownload">
                 <source src="./videos/scene2.mp4" type="video/mp4">
               </video>
             </div>
@@ -201,7 +201,7 @@
           <!-- Épisode 3 -->
           <div class="thumb-card" onclick="openChoiceModal()">
             <div class="thumb-wrapper">
-              <video autoplay loop muted playsinline webkit-playsinline>
+              <video autoplay loop muted playsinline webkit-playsinline controlsList="nodownload">
                 <source src="./videos/scene3.mp4" type="video/mp4">
               </video>
             </div>
@@ -281,24 +281,21 @@
       </div>
 
       <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
-		  <dotlottie-player 
-			src="./Whatsapp.lottie" 
-			background="transparent" 
-			speed="1" 
-			style="width: 70px; height: 70px;" 
-			loop 
-			autoplay>
-		  </dotlottie-player>
-		  <span>Écrire la suite de notre histoire... ✨</span>
-		</button>
+        <dotlottie-player 
+          src="./Whatsapp.lottie" 
+          background="transparent" 
+          speed="1" 
+          style="width: 50px; height: 50px;" 
+          loop 
+          autoplay>
+        </dotlottie-player>
+        <span>Écrire la suite de notre histoire... ✨</span>
+      </button>
 
       <span class="final-note">À très vite pour ce moment unique 🌹</span>
     </div>
   </div>
 
-  <!-- Inclusions des scripts dans l'ordre exact d'exécution -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
-  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </body>
 </html>

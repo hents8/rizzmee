@@ -3,6 +3,10 @@ let selectedChoice = "";
 let isManagingProfiles = false;
 let autoScrollTimer = null;
 
+// Audio pour la sélection d'options
+const optionSound = new Audio('./audio/wow.mp3'); 
+optionSound.volume = 0.5;
+
 // Dictionnaire d'accroches romantiques pour l'écran final
 const optionDetails = {
   'Cocktails & sunset 🍹': {
@@ -108,24 +112,18 @@ function openChoiceModal() {
   if (modal) modal.style.display = "flex";
 }
 
-// 1. Déclaration du son de sélection (à mettre au début du script.js)
-const optionSound = new Audio('./audio/wow.mp3'); 
-optionSound.volume = 0.5; // Ajuste le volume (entre 0.0 et 1.0)
-
+// Sélection d'une option
 function selectOption(optionKey) {
-  // 2. Joue le son au moment exact du clic
   if (optionSound) {
-    optionSound.currentTime = 0; // Réinitialise si la personne clique rapidement
+    optionSound.currentTime = 0;
     optionSound.play().catch(e => console.log("Erreur audio option :", e));
   }
 
   selectedChoice = optionKey;
 
-  // 3. Ferme la modale de choix
   const choiceModal = document.getElementById("choice-modal");
   if (choiceModal) choiceModal.style.display = "none";
 
-  // 4. Prépare les textes de l'écran final
   const data = optionDetails[optionKey] || {
     headline: "Un rendez-vous d'exception...",
     text: "Le programme est prêt, il ne manque plus que toi."
@@ -137,84 +135,65 @@ function selectOption(optionKey) {
   if (headlineEl) headlineEl.innerText = data.headline;
   if (textEl) textEl.innerText = data.text;
 
-  // 5. Affiche l'écran final
   const finalScreen = document.getElementById("final-screen");
   if (finalScreen) finalScreen.style.display = "flex";
 
-  // 6. Déclenche la pluie d'émojis
   setTimeout(() => {
     lancerConfettis();
   }, 100);
 }
 
+// Animation de Confettis Émojis
 function lancerConfettis() {
-  const elements = ['💐', '🌹', '❤️', '💖', '✨', '🌸'];
-  const totalCount = 60; // Nombre idéal pour ne pas surcharger l'écran
+  const elements = ['💐', '🌹', '❤️', '💖', '✨', '🌸', '🌺', '💕'];
+  const totalCount = 80;
 
   for (let i = 0; i < totalCount; i++) {
-    // 1. Création de l'élément HTML natif (Netteté vectorielle garantie)
     const item = document.createElement('div');
     item.innerText = elements[Math.floor(Math.random() * elements.length)];
 
-    // 2. Position initiale (Départ en bas de l'écran avec dispersion)
-    const startX = Math.random() * 80 + 10; // Entre 10% et 90% de la largeur
-    const size = Math.random() * 1.2 + 1.8; // Taille variable entre 1.8rem et 3rem (très lisible)
-    const duration = Math.random() * 1.5 + 2.5; // Durée du vol (2.5s à 4s pour un effet doux)
-    const delay = Math.random() * 0.4; // Léger décalage entre chaque apparition
+    const startX = Math.random() * 96 + 2; 
+    const size = Math.random() * 1.4 + 1.6;
+    const duration = Math.random() * 2.0 + 2.5; 
+    const delay = Math.random() * 1.0; 
 
-    // 3. Application des styles d'animation natifs
     Object.assign(item.style, {
       position: 'fixed',
       left: `${startX}vw`,
-      bottom: '-50px',
+      bottom: '-60px',
       fontSize: `${size}rem`,
       zIndex: '999999',
       pointerEvents: 'none',
       userSelect: 'none',
       opacity: '0',
-      filter: 'drop-shadow(0 4px 10px rgba(229, 9, 20, 0.3))',
+      filter: 'drop-shadow(0 4px 12px rgba(229, 9, 20, 0.4))',
       transition: `transform ${duration}s cubic-bezier(0.12, 0.8, 0.32, 1), opacity 0.6s ease`
     });
 
     document.body.appendChild(item);
 
-    // 4. Déclenchement du mouvement (Montée féérique avec balancement naturel)
     setTimeout(() => {
-      const moveX = (Math.random() - 0.5) * 160; // Mouvement de dérive latérale
-      const moveY = -(window.innerHeight * 0.85 + Math.random() * 100); // Hauteur d'envol
-      const rotation = (Math.random() - 0.5) * 90; // Rotation douce (pas de vrille rapide)
+      const moveX = (Math.random() - 0.5) * 200;
+      const moveY = -(window.innerHeight * 0.9 + Math.random() * 80);
+      const rotation = (Math.random() - 0.5) * 80;
 
       item.style.opacity = '1';
       item.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotation}deg)`;
     }, delay * 1000);
 
-    // 5. Fondu de disparition élégant en fin de course
     setTimeout(() => {
       item.style.opacity = '0';
-    }, (duration + delay - 0.8) * 1000);
+    }, (duration + delay - 0.7) * 1000);
 
-    // 6. Nettoyage du DOM
     setTimeout(() => {
       item.remove();
-    }, (duration + delay + 0.2) * 1000);
+    }, (duration + delay + 0.3) * 1000);
   }
 }
 
 // Ouverture de WhatsApp
 function sendWhatsApp() {
   window.open(`https://wa.me/${MY_PHONE_NUMBER}`, '_blank');
-}
-
-// Contrôle manuel carrousel
-function moveCarousel(direction) {
-  const container = document.getElementById('thumbnailRow');
-  if (!container) return;
-
-  const cardWidth = container.clientWidth;
-  container.scrollBy({
-    left: direction * cardWidth,
-    behavior: 'smooth'
-  });
 }
 
 // Défilement automatique mobile
@@ -232,3 +211,36 @@ function startAutoScroll() {
     }
   }, 5500);
 }
+
+// 1. Désactiver le menu du clic droit
+document.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+});
+
+// 2. Bloquer les raccourcis clavier de l'inspecteur et du code source
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'F12') {
+    e.preventDefault();
+    return false;
+  }
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+    e.preventDefault();
+    return false;
+  }
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+    e.preventDefault();
+    return false;
+  }
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
+    e.preventDefault();
+    return false;
+  }
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U')) {
+    e.preventDefault();
+    return false;
+  }
+  if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+    e.preventDefault();
+    return false;
+  }
+});
