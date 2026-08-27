@@ -31,6 +31,118 @@ document.addEventListener("DOMContentLoaded", () => {
   startAutoScroll();
 });
 
+// ==========================================
+// GESTION AUDIO UNIFIÉE ET SÉCURISÉE (MOBILE)
+// ==========================================
+
+// Coupe immédiatement TOUS les sons et annule les fondus en cours
+function stopAllAudio() {
+  if (volumeInterval) clearInterval(volumeInterval);
+  if (spookyVolumeInterval) clearInterval(spookyVolumeInterval);
+
+  const sounds = [
+    document.getElementById("netflix-sound"),
+    document.getElementById("trailer-music"),
+    document.getElementById("spooky-music")
+  ];
+
+  sounds.forEach(sound => {
+    if (sound) {
+      sound.pause();
+      sound.currentTime = 0; // Obligatoire pour stopper la lecture sur iOS/Safari
+      sound.volume = 0;
+    }
+  });
+}
+
+// Musique Trailer avec Fade-In
+function playTrailerMusic() {
+  stopAllAudio(); // Évite la superposition de sons
+
+  const music = document.getElementById("trailer-music");
+  if (!music) return;
+
+  music.currentTime = 0;
+  music.volume = 0;
+
+  music.play().then(() => {
+    let vol = 0;
+    volumeInterval = setInterval(() => {
+      if (vol < 0.3) {
+        vol += 0.02;
+        music.volume = Math.min(vol, 0.3);
+      } else {
+        clearInterval(volumeInterval);
+      }
+    }, 100);
+  }).catch(e => console.log("Trailer audio bloqué par le navigateur :", e));
+}
+
+// Musique Trailer avec Fade-Out
+function stopTrailerMusic() {
+  const music = document.getElementById("trailer-music");
+  if (!music || music.paused) return;
+
+  if (volumeInterval) clearInterval(volumeInterval);
+
+  volumeInterval = setInterval(() => {
+    if (music.volume > 0.03) {
+      music.volume -= 0.03;
+    } else {
+      music.volume = 0;
+      music.pause();
+      music.currentTime = 0;
+      clearInterval(volumeInterval);
+    }
+  }, 80);
+}
+
+// Musique Spooky (Modale des choix) avec Fade-In
+function playSpookyMusic() {
+  stopAllAudio(); // Coupe le trailer si encore actif
+
+  const spooky = document.getElementById("spooky-music");
+  if (!spooky) return;
+
+  spooky.currentTime = 0;
+  spooky.volume = 0;
+
+  spooky.play().then(() => {
+    let vol = 0;
+    spookyVolumeInterval = setInterval(() => {
+      if (vol < 0.4) {
+        vol += 0.04;
+        spooky.volume = Math.min(vol, 0.4);
+      } else {
+        clearInterval(spookyVolumeInterval);
+      }
+    }, 80);
+  }).catch(e => console.log("Son Spooky bloqué par le navigateur :", e));
+}
+
+// Musique Spooky avec Fade-Out
+function stopSpookyMusic() {
+  const spooky = document.getElementById("spooky-music");
+  if (!spooky || spooky.paused) return;
+
+  if (spookyVolumeInterval) clearInterval(spookyVolumeInterval);
+
+  spookyVolumeInterval = setInterval(() => {
+    if (spooky.volume > 0.04) {
+      spooky.volume -= 0.04;
+    } else {
+      spooky.volume = 0;
+      spooky.pause();
+      spooky.currentTime = 0;
+      clearInterval(spookyVolumeInterval);
+    }
+  }, 50);
+}
+
+// ==========================================
+// NAVIGATION ET INTERACTION
+// ==========================================
+
 // Bascule du mode "Gérer les profils"
 function toggleManageProfiles() {
   isManagingProfiles = !isManagingProfiles;
@@ -55,6 +167,8 @@ function toggleManageProfiles() {
 
 // Sélection de profil & Animation Ta-Dum
 function selectProfile(profileType) {
+  stopAllAudio(); // Sécurité audio globale
+
   const introScreen = document.getElementById("intro-screen");
   const sound = document.getElementById("netflix-sound");
   const heart = document.querySelector(".netflix-heart");
@@ -77,7 +191,8 @@ function selectProfile(profileType) {
 
   if (sound) {
     sound.currentTime = 0;
-    sound.play().catch(e => console.log("Erreur audio :", e));
+    sound.volume = 1;
+    sound.play().catch(e => console.log("Erreur audio Ta-Dum :", e));
   }
 
   setTimeout(() => {
@@ -89,8 +204,10 @@ function selectProfile(profileType) {
   }, 2300);
 }
 
-// Changement d'écran avec gestion de la musique d'ambiance
+// Changement d'écran
 function goToScreen(screenId) {
+  stopAllAudio(); // Coupe proprement tout son en arrière-plan
+
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
   });
@@ -99,65 +216,20 @@ function goToScreen(screenId) {
   if (targetScreen) {
     targetScreen.classList.add('active');
     
-    // Si on entre sur l'écran "reasons-screen" -> Fondu entrant musique
     if (screenId === 'reasons-screen') {
       playTrailerMusic();
       
       document.querySelectorAll('#reasons-screen video').forEach(video => {
         video.muted = true;
-        video.play().catch(e => console.log("Autoplay mobile bloqué :", e));
+        video.play().catch(e => console.log("Autoplay video mobile bloqué :", e));
       });
-    } else {
-      stopTrailerMusic();
     }
   }
 }
 
-// Lancer le son d'hésitation "Spooky Season"
-function playSpookyMusic() {
-  const spooky = document.getElementById("spooky-music");
-  if (!spooky) return;
-
-  if (spookyVolumeInterval) clearInterval(spookyVolumeInterval);
-
-  spooky.volume = 0;
-  spooky.currentTime = 0;
-
-  spooky.play().then(() => {
-    let vol = 0;
-    spookyVolumeInterval = setInterval(() => {
-      if (vol < 0.4) {
-        vol += 0.04;
-        spooky.volume = Math.min(vol, 0.4);
-      } else {
-        clearInterval(spookyVolumeInterval);
-      }
-    }, 80);
-  }).catch(e => console.log("Son Spooky bloqué par le navigateur :", e));
-}
-
-// Arrêter le son Spooky
-function stopSpookyMusic() {
-  const spooky = document.getElementById("spooky-music");
-  if (!spooky || spooky.paused) return;
-
-  if (spookyVolumeInterval) clearInterval(spookyVolumeInterval);
-
-  spookyVolumeInterval = setInterval(() => {
-    if (spooky.volume > 0.04) {
-      spooky.volume -= 0.04;
-    } else {
-      spooky.volume = 0;
-      spooky.pause();
-      clearInterval(spookyVolumeInterval);
-    }
-  }, 50);
-}
-
 // Ouverture de la modale des choix
 function openChoiceModal() {
-  stopTrailerMusic();
-  playSpookyMusic(); // Lance le son Spooky pendant l'hésitation
+  playSpookyMusic(); // Bascule immédiatement vers la musique d'hésitation
 
   const modal = document.getElementById("choice-modal");
   if (modal) modal.style.display = "flex";
@@ -183,10 +255,11 @@ function typeWriterAnimation(elementId, text, speed = 80) {
 
 // Sélection d'une option finale
 function selectOption(optionKey) {
-  stopSpookyMusic(); // Coupe le son Spooky lors du choix
+  stopAllAudio(); // Coupe la musique d'hésitation
 
   if (optionSound) {
     optionSound.currentTime = 0;
+    optionSound.volume = 0.5;
     optionSound.play().catch(e => console.log("Erreur audio option :", e));
   }
 
@@ -294,44 +367,3 @@ document.addEventListener('keydown', e => {
     return false;
   }
 });
-
-// Musique Trailer Fade-In
-function playTrailerMusic() {
-  const music = document.getElementById("trailer-music");
-  if (!music) return;
-
-  if (volumeInterval) clearInterval(volumeInterval);
-  
-  music.volume = 0;
-  music.currentTime = 0;
-  
-  music.play().then(() => {
-    let vol = 0;
-    volumeInterval = setInterval(() => {
-      if (vol < 0.3) {
-        vol += 0.02;
-        music.volume = Math.min(vol, 0.3);
-      } else {
-        clearInterval(volumeInterval);
-      }
-    }, 100);
-  }).catch(e => console.log("Musique bloquée :", e));
-}
-
-// Musique Trailer Fade-Out
-function stopTrailerMusic() {
-  const music = document.getElementById("trailer-music");
-  if (!music || music.paused) return;
-
-  if (volumeInterval) clearInterval(volumeInterval);
-
-  volumeInterval = setInterval(() => {
-    if (music.volume > 0.03) {
-      music.volume -= 0.03;
-    } else {
-      music.volume = 0;
-      music.pause();
-      clearInterval(volumeInterval);
-    }
-  }, 80);
-}
